@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Project1DotNet
 {
@@ -145,18 +146,122 @@ namespace Project1DotNet
             }
 
             DateTime birthday = DateTime.ParseExact(stringedBirthday, dateFormat, null);
-            database.Students.Add(new Student(database.GenerateStudentId(), firstName, lastName, birthday));
-            Console.WriteLine($"L'étudiant {firstName} {lastName} a bien été ajouté.");
+            database.AddStudent(firstName, lastName, birthday);
             return 1;
         }
 
+        // Consulter un élève (11)
         public int ConsultStudentMenu(int menu, Database database)
         {
+            database.ShowStudents();
             Console.WriteLine("____________________");
-            Console.WriteLine("Entrez le numéro d'identité de l'étudiant.");
-            int id = Convert.ToInt32(Console.ReadLine());
-            database.ShowStudent(id);
-            return 1;
+            Console.WriteLine("Entrez le numéro d'identifiant de l'étudiant.");
+            try
+            {
+                int id = Convert.ToInt32(Console.ReadLine());
+                database.ShowStudent(id, database);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                IncorrectId();
+                return menu;
+            }
+        }
+
+        // Ajouter une note à un élève (12)
+        public int AddGradeMenu(int menu, Database database)
+        {
+            try
+            {
+                // On demande l'ID de l'étudiant
+                database.ShowStudents();
+                Console.WriteLine("Entrez le numéro d'identifiant de l'étudiant à qui ajouter une note.");
+                int idStudent = Convert.ToInt32(Console.ReadLine());
+                if (database.GetStudent(idStudent) == null) return 1;
+                Student currentStudent = database.GetStudent(idStudent);
+
+                // On demande l'ID du cours
+                database.ShowSubjects();
+                Console.WriteLine($"({currentStudent.FirstName} {currentStudent.LastName}) Entrez le numéro d'identifiant du cours.");
+                int idSubject = Convert.ToInt32(Console.ReadLine());
+                if (database.GetSubject(idSubject) == null) return 1;
+
+                // On demande la note
+                Console.WriteLine($"({currentStudent.FirstName} {currentStudent.LastName}) Entrez une note sur 20.");
+                int score = Convert.ToInt32(Console.ReadLine());
+                if (score > 20 || score < 0)
+                {
+                    IncorrectScore();
+                    return menu;
+                }
+
+                // On demande l'appréciation
+                Console.WriteLine($"({currentStudent.FirstName} {currentStudent.LastName}) Entrez une appréciation. (facultatif)");
+                string appreciation = "";
+                appreciation = Console.ReadLine();
+
+                // On demande de valider
+                Console.WriteLine($"Un {score}/20 en {database.GetSubject(idSubject).Name} sera ajouté à {currentStudent.FirstName} {currentStudent.LastName}. Confirmer? (y/n)");
+                string confirm = Console.ReadLine();
+                if (confirm != "y" && confirm != "n")
+                {
+                    Console.WriteLine(@"/!\ La confirmation a échouée.");
+                    return menu;
+                }
+                else if (confirm == "n")
+                {
+                    Console.WriteLine(@"/!\ Attribution de la note annulée.");
+                    return 1;
+                }
+
+                database.AddGrade(idStudent, idSubject, score, appreciation);
+                return 1;
+
+            }
+            catch (Exception ex)
+            {
+                IncorrectGlobal();
+                return menu;
+            }
+        }
+
+        // Ajouter un cours (20)
+        public int AddSubjectMenu(int menu, Database database)
+        {
+            Console.WriteLine("Choisissez un nom pour le nouveau cours.");
+            string name = Console.ReadLine();
+            database.AddSubject(name);
+            return 2;
+        }
+
+        // Supprimer un cours (21)
+        public int DeleteSubjectMenu(int menu, Database database)
+        {
+            Console.WriteLine("Entrez l'identifiant du cours à supprimer.");
+            try
+            {
+                int idSubject = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine($"La suppression de ce cours entraînement la suppression de toutes les notes qui lui sont associées. Confirmer? (y/n)");
+                string confirm = Console.ReadLine();
+                if (confirm != "y" && confirm != "n")
+                {
+                    Console.WriteLine(@"/!\ La confirmation a échouée.");
+                    return menu;
+                }
+                else if (confirm == "n")
+                {
+                    Console.WriteLine(@"/!\ La suppression du cours a été annulée.");
+                    return 2;
+                }
+                database.DeleteSubject(idSubject);
+                return 2;
+            }
+            catch (Exception ex)
+            {
+                IncorrectId();
+                return menu;
+            }
         }
 
 
@@ -164,13 +269,30 @@ namespace Project1DotNet
         public void IncorrectInput()
         {
             Console.WriteLine("____________________");
-            Console.WriteLine("Saisie incorrecte. Veuillez utiliser le numéro affiché devant votre sélection.");
+            Console.WriteLine(@"/!\ Saisie incorrecte. Veuillez utiliser le numéro affiché devant votre sélection.");
         }
 
         public void IncorrectBirthday()
         {
             Console.WriteLine("____________________");
-            Console.WriteLine("La date de naissance est incorrecte. Elle doit suivre le schéma suivant : DD/MM/YYYY.");
+            Console.WriteLine(@"/!\ La date de naissance est incorrecte. Elle doit suivre le schéma suivant : DD/MM/YYYY.");
+        }
+
+        public void IncorrectId()
+        {
+            Console.WriteLine("____________________");
+            Console.WriteLine(@"/!\ L'identifiant doit être un nombre existant.");
+        }
+
+        public void IncorrectScore()
+        {
+            Console.WriteLine("____________________");
+            Console.WriteLine(@"/!\ La note doit être comprise entre 0 et 20.");
+        }
+        public void IncorrectGlobal()
+        {
+            Console.WriteLine("____________________");
+            Console.WriteLine(@"/!\ Entrée incorrecte.");
         }
     }
 }

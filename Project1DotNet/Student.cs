@@ -12,26 +12,56 @@ namespace Project1DotNet
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Birthday { get; set; }
-        public List<Grade> Grades { get; }
-        public double Average { get => Grades.Average(Grade => Grade.Score); }
 
-        public Student (int id, string firstName, string lastName, DateTime birthday)
+        public Student(int id, string firstName, string lastName, DateTime birthday)
         {
             this.Id = id;
             this.FirstName = firstName;
             this.LastName = lastName;
-            this.Birthday = new DateTime(2000,10,10);
-            
+            this.Birthday = birthday;
+        }
+        // Méthodes "GET"
+        public List<Grade> GetGrades(int studentId, Database database)
+        {
+            List<Grade> studentGrades = new List<Grade>();
+            foreach (Grade grade in database.Grades)
+            {
+                if (grade.StudentId == studentId)
+                {
+                    studentGrades.Add(grade);
+                }
+            }
+            return studentGrades;
         }
 
-        public bool AddGrade(Subject subject, double score, string appreciation)
+        public double GetAverage(int studentId, Database database)
         {
-            try
+            return GetGrades(studentId, database).Average(grade => grade.Score);
+        }
+
+        // Méthodes "SHOW"
+        public void ShowGrades(int studentId, Database database)
+        {
+            foreach (Grade grade in database.Grades)
             {
-            Grades.Add(new Grade(subject, score, appreciation));
-            return true;
+                if (grade.StudentId == studentId)
+                {
+                    Subject currentSubject = database.GetSubject(grade.SubjectId);
+                    Console.Write("     Cours            ");
+                    Console.WriteLine($": {currentSubject.Name}");
+                    Console.Write("     Note             ");
+                    Console.WriteLine($": {grade.Score}/20");
+                    Console.Write("     Appréciation     ");
+                    Console.WriteLine($": {grade.Appreciation}");
+                    Console.WriteLine("");
+                }
             }
-            catch { return false; }
+        }
+
+        public void ShowAverage(int studentId, Database database)
+        {
+            Console.Write("     Moyenne          ");
+            Console.WriteLine($": {Math.Round(GetGrades(studentId, database).Average(grade => grade.Score), 1)}/20");
         }
     }
 }
