@@ -156,8 +156,8 @@ namespace Project1DotNet
         {
             try
             {
-                Student currentStudent = this.Students[idStudent];
-                Subject currentSubject = this.Subjects[idSubject];
+                Student currentStudent = this.Students.First(student => student.Id == idStudent);
+                Subject currentSubject = this.Subjects.First(subject => subject.Id == idSubject);
 
                 this.Grades.Add(new Grade(idStudent, idSubject, score, appreciation));
                 WriteGrades();

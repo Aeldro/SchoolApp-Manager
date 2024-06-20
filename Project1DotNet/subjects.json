@@ -1,10 +1,6 @@
 [
   {
-    "Id": 1,
-    "Name": "Français"
-  },
-  {
-    "Id": 2,
+    "Id": 0,
     "Name": "Anglais"
   }
 ]
