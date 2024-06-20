@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,14 +12,22 @@ namespace Project1DotNet
     internal class Database
     {
         public List<Student> Students { get; }
+        private string studentsPath = @"./../../../students.json";
         public List<Subject> Subjects { get; }
+        private string subjectsPath = @"./../../../subjects.json";
         public List<Grade> Grades { get; }
+        private string gradesPath = @"./../../../grades.json";
 
         public Database()
         {
-            this.Students = new List<Student>();
-            this.Subjects = new List<Subject>();
-            this.Grades = new List<Grade>();
+            this.Students = ReadStudents();
+            this.Subjects = ReadSubjects();
+            this.Grades = ReadGrades();
+        }
+
+        public void importDatabase()
+        {
+
         }
 
         // Méthodes "GET"
@@ -110,7 +119,7 @@ namespace Project1DotNet
                     Console.Write("Nom               ");
                     Console.WriteLine($": {student.LastName}");
                     Console.Write("Date de naissance ");
-                    Console.WriteLine($": {student.Birthday}");
+                    Console.WriteLine($": {student.Birthday.ToString("dd/MM/yyyy")}");
                     Console.WriteLine("");
                     Console.WriteLine("Résultats scolaires :");
                     Console.WriteLine("");
@@ -133,6 +142,7 @@ namespace Project1DotNet
             try
             {
                 this.Students.Add(new Student(GenerateStudentId(), firstName, lastName, birthday));
+                WriteStudents();
                 Console.WriteLine($"L'étudiant {firstName} {lastName} a bien été ajouté.");
             }
             catch (Exception ex)
@@ -150,6 +160,7 @@ namespace Project1DotNet
                 Subject currentSubject = this.Subjects[idSubject];
 
                 this.Grades.Add(new Grade(idStudent, idSubject, score, appreciation));
+                WriteGrades();
                 Console.WriteLine($"Un {score}/20 en {currentSubject.Name} a été ajoutée à {currentStudent.FirstName} {currentStudent.LastName}.");
             }
             catch (Exception ex)
@@ -164,6 +175,7 @@ namespace Project1DotNet
             try
             {
                 this.Subjects.Add(new Subject(GenerateSubjectId(), name));
+                WriteSubjects();
                 Console.WriteLine($"Le cours {name} a bien été ajouté.");
 
             }
@@ -179,15 +191,19 @@ namespace Project1DotNet
         {
             try
             {
-                for (int i = 0; i < this.Grades.Count; i++)
-                {
-                    if (Grades[i].SubjectId == idSubject) this.Grades.RemoveAt(i);
-                }
+                //for (int i = 0; i < this.Grades.Count; i++)
+                //{
+                //    if (Grades[i].SubjectId == idSubject) this.Grades.RemoveAt(i);
+                //}
 
-                for (int i = 0; i < this.Subjects.Count; i++)
-                {
-                    if (Subjects[i].Id == idSubject) this.Subjects.RemoveAt(i);
-                }
+                //for (int i = 0; i < this.Subjects.Count; i++)
+                //{
+                //    if (Subjects[i].Id == idSubject) this.Subjects.RemoveAt(i);
+                //}
+                this.Grades.RemoveAll(grade => grade.SubjectId == idSubject);
+                this.Subjects.RemoveAll(subject => subject.Id == idSubject);
+                WriteSubjects();
+                WriteGrades();
                 Console.WriteLine($"Le cours ses notes associées ont bien été supprimés.");
 
             }
@@ -210,5 +226,66 @@ namespace Project1DotNet
             if (Subjects.Count > 0) return Subjects.Last().Id + 1;
             else return 0;
         }
+
+        // Méthodes "WRITEFILE"
+        public void WriteStudents()
+        {
+            string json = JsonConvert.SerializeObject(Students, Formatting.Indented);
+            File.WriteAllText(studentsPath, json);
+        }
+        public void WriteSubjects()
+        {
+            string json = JsonConvert.SerializeObject(Subjects, Formatting.Indented);
+            File.WriteAllText(subjectsPath, json);
+        }
+        public void WriteGrades()
+        {
+            string json = JsonConvert.SerializeObject(Grades, Formatting.Indented);
+            File.WriteAllText(gradesPath, json);
+        }
+
+        // Méthodes "READFILE"
+        public List<Student> ReadStudents()
+        {
+            try
+            {
+                string jsonContent = File.ReadAllText(studentsPath);
+                List<Student> importedStudents = JsonConvert.DeserializeObject<List<Student>>(jsonContent);
+                return importedStudents;
+            }
+            catch (Exception ex)
+            {
+                return new List<Student>();
+            }
+        }
+
+        public List<Subject> ReadSubjects()
+        {
+            try
+            {
+                string jsonContent = File.ReadAllText(subjectsPath);
+                List<Subject> importedSubjects = JsonConvert.DeserializeObject<List<Subject>>(jsonContent);
+                return importedSubjects;
+            }
+            catch (Exception ex)
+            {
+                return new List<Subject>();
+            }
+        }
+
+        public List<Grade> ReadGrades()
+        {
+            try
+            {
+                string jsonContent = File.ReadAllText(gradesPath);
+                List<Grade> importedGrades = JsonConvert.DeserializeObject<List<Grade>>(jsonContent);
+                return importedGrades;
+            }
+            catch (Exception ex)
+            {
+                return new List<Grade>();
+            }
+        }
+
     }
 }

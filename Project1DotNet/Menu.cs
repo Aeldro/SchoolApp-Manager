@@ -189,7 +189,7 @@ namespace Project1DotNet
 
                 // On demande la note
                 Console.WriteLine($"({currentStudent.FirstName} {currentStudent.LastName}) Entrez une note sur 20.");
-                int score = Convert.ToInt32(Console.ReadLine());
+                double score = Convert.ToDouble(Console.ReadLine());
                 if (score > 20 || score < 0)
                 {
                     IncorrectScore();

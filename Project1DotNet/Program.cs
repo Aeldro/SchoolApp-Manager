@@ -21,22 +21,22 @@ namespace Project1DotNet
             Menu menuManager = new Menu();
             int menu = 0;
 
-            database.AddStudent("Coralie", "ALINI", new DateTime(2001, 6, 19));
-            database.AddStudent("Alex", "PREFI", new DateTime(1995, 1, 8));
-            database.AddStudent("Sandrine", "SCRUA", new DateTime(1999, 8, 25));
-            database.AddSubject("Mathématiques");
-            database.AddSubject("Français");
-            database.AddSubject("Anglais");
-            foreach (Student student in database.Students)
-            {
-                foreach (Subject subject in database.Subjects)
-                {
-                    database.AddGrade(student.Id, subject.Id, 15, $"Appréciation de {student.FirstName}.");
-                }
-            }
-            database.AddGrade(0, 0, 15.5, $"Appréciation de .");
-            database.AddGrade(0, 0, 16.5, $"Appréciation de .");
-            database.AddGrade(0, 0, 9.3333, $"Appréciation de .");
+            //database.AddStudent("Coralie", "ALINI", new DateTime(2001, 6, 19));
+            //database.AddStudent("Alex", "PREFI", new DateTime(1995, 1, 8));
+            //database.AddStudent("Sandrine", "SCRUA", new DateTime(1999, 8, 25));
+            //database.AddSubject("Mathématiques");
+            //database.AddSubject("Français");
+            //database.AddSubject("Anglais");
+            //foreach (Student student in database.Students)
+            //{
+            //    foreach (Subject subject in database.Subjects)
+            //    {
+            //        database.AddGrade(student.Id, subject.Id, 15, $"Appréciation de {student.FirstName}.");
+            //    }
+            //}
+            //database.AddGrade(0, 0, 15.5, $"Appréciation de .");
+            //database.AddGrade(0, 0, 16.5, $"Appréciation de .");
+            //database.AddGrade(0, 0, 9.3333, $"Appréciation de .");
 
 
             while (true)
