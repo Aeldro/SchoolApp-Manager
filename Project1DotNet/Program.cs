@@ -1,4 +1,5 @@
-﻿using static System.Formats.Asn1.AsnWriter;
+﻿using Serilog;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Project1DotNet
 {
@@ -17,6 +18,10 @@ namespace Project1DotNet
             // 20 : Ajouter un cours
             // 21 : Supprimer un cours
 
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .WriteTo.File("./../../../logs/log-.txt", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
             Database database = new Database();
             Menu menuManager = new Menu();
             int menu = 0;

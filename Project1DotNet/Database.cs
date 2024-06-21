@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,7 @@ namespace Project1DotNet
                 Console.Write(student.FirstName + " ");
                 Console.WriteLine(student.LastName);
             }
+            Log.Information("Showed all the students.");
         }
         public void ShowSubjects()
         {
@@ -101,6 +103,7 @@ namespace Project1DotNet
                 Console.Write(subject.Id + " ");
                 Console.WriteLine(subject.Name);
             }
+            Log.Information("Showed all the subjects.");
         }
 
         public void ShowStudent(int id, Database database)
@@ -127,6 +130,8 @@ namespace Project1DotNet
                     student.ShowAverage(student.Id, database);
 
                     Console.WriteLine("--------------------");
+                    Log.Information($"Showed the student {student.Id} {student.FirstName} {student.LastName}.");
+
                     break;
                 }
                 else if (student.Id == Students.Last().Id)
