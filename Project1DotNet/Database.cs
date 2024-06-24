@@ -94,6 +94,7 @@ namespace Project1DotNet
             }
             Log.Information("Showed all the students.");
         }
+
         public void ShowSubjects()
         {
             Console.WriteLine("____________________");
@@ -137,6 +138,8 @@ namespace Project1DotNet
                 else if (student.Id == Students.Last().Id)
                 {
                     Console.WriteLine(@"/!\ Aucun étudiant ne correspond à cet identifiant.");
+                    Log.Error($"Failed showing the student by the ID {id}.");
+
                 }
             }
         }
@@ -144,16 +147,20 @@ namespace Project1DotNet
         // Méthodes "ADD"
         public void AddStudent(string firstName, string lastName, DateTime birthday)
         {
+            int id = GenerateStudentId();
             try
             {
-                this.Students.Add(new Student(GenerateStudentId(), firstName, lastName, birthday));
+                this.Students.Add(new Student(id, firstName, lastName, birthday));
                 WriteStudents();
                 Console.WriteLine($"L'étudiant {firstName} {lastName} a bien été ajouté.");
+                Log.Information($"Student {id} {firstName} {lastName} added to database.");
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"/!\ Une erreur est survenue lors de l'ajout de l'étudiant à la base de données.");
                 Console.WriteLine(ex.ToString());
+                Log.Error(ex, $"Failed to add the student {id} {firstName} {lastName} to database.");
             }
         }
 
@@ -167,11 +174,14 @@ namespace Project1DotNet
                 this.Grades.Add(new Grade(idStudent, idSubject, score, appreciation));
                 WriteGrades();
                 Console.WriteLine($"Un {score}/20 en {currentSubject.Name} a été ajoutée à {currentStudent.FirstName} {currentStudent.LastName}.");
+                Log.Information($"{score}/20 added to database in {currentSubject.Name} for the student {currentStudent.Id} {currentStudent.FirstName} {currentStudent.LastName}.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"/!\ Une erreur est survenue lors de l'ajout de la note à la base de données.");
                 Console.WriteLine(ex.ToString());
+                Log.Error(ex, $"Failed to add the grade to database. Grade: {score}/20");
+
             }
         }
 
@@ -182,12 +192,15 @@ namespace Project1DotNet
                 this.Subjects.Add(new Subject(GenerateSubjectId(), name));
                 WriteSubjects();
                 Console.WriteLine($"Le cours {name} a bien été ajouté.");
+                Log.Information($"Subject {name} added to database.");
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"/!\ Une erreur est survenue lors de l'ajout du cours à la base de données.");
                 Console.WriteLine(ex.ToString());
+                Log.Error(ex, $"Failed to add the subject {name} to database.");
+
             }
         }
 
@@ -196,19 +209,14 @@ namespace Project1DotNet
         {
             try
             {
-                //for (int i = 0; i < this.Grades.Count; i++)
-                //{
-                //    if (Grades[i].SubjectId == idSubject) this.Grades.RemoveAt(i);
-                //}
-
-                //for (int i = 0; i < this.Subjects.Count; i++)
-                //{
-                //    if (Subjects[i].Id == idSubject) this.Subjects.RemoveAt(i);
-                //}
                 this.Grades.RemoveAll(grade => grade.SubjectId == idSubject);
+                WriteGrades();
+                Log.Information($"The grades associated to the subject have been removed from database. Subject ID: {idSubject}.");
+                
                 this.Subjects.RemoveAll(subject => subject.Id == idSubject);
                 WriteSubjects();
-                WriteGrades();
+                Log.Information($"The subject has been removed from database. Subject ID: {idSubject}.");
+
                 Console.WriteLine($"Le cours ses notes associées ont bien été supprimés.");
 
             }
@@ -216,6 +224,7 @@ namespace Project1DotNet
             {
                 Console.WriteLine(@"/!\ Une erreur est survenue lors de la suppression du cours ou des notes associées.");
                 Console.WriteLine(ex.ToString());
+                Log.Error(ex, $"Failed to delete the subject from database. Subject ID: {idSubject}.");
             }
         }
 
