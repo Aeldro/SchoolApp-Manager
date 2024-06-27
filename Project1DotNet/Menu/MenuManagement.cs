@@ -18,63 +18,57 @@ namespace Project1DotNet.Menu
         {
             while (true)
             {
-
-                // Menu de départ (0)
-                if (Menu == MenuConst.MAIN_MENU)
+                switch (Menu)
                 {
-                    Menu = MainMenuDisplay.StartMenu(Menu);
-                }
+                    // Menu de départ (0)
+                    case MenuConst.MAIN_MENU:
+                        Menu = MainMenuDisplay.StartMenu(Menu);
+                        break;
 
-                // Menu élèves (1)
-                if (Menu == MenuConst.STUDENT_MENU)
-                {
-                    Menu = StudentMenuDisplay.StudentMenu(Menu);
-                }
+                    // Menu élèves (1)
+                    case MenuConst.STUDENT_MENU:
+                        Menu = StudentMenuDisplay.StudentMenu(Menu);
+                        break;
 
-                // Menu cours (2)
-                if (Menu == MenuConst.SUBJECT_MENU)
-                {
-                    Menu = SubjectMenuDisplay.SubjectMenu(Menu);
-                }
+                    // Menu cours (2)
+                    case MenuConst.SUBJECT_MENU:
+                        Menu = SubjectMenuDisplay.SubjectMenu(Menu);
+                        break;
 
-                // Ajouter un élève (10)
-                if (Menu == MenuConst.ADD_STUDENT_MENU)
-                {
-                    Menu = StudentMenuDisplay.AddStudentMenu(Menu);
-                }
+                    // Ajouter un élève (10)
+                    case MenuConst.ADD_STUDENT_MENU:
+                        Menu = StudentMenuDisplay.AddStudentMenu(Menu);
+                        break;
 
-                // Consulter un élève (11)
-                if (Menu == MenuConst.CONSULT_STUDENT_MENU)
-                {
-                    Menu = StudentMenuDisplay.ConsultStudentMenu(Menu);
-                }
+                    // Consulter un élève (11)
+                    case MenuConst.CONSULT_STUDENT_MENU:
+                        Menu = StudentMenuDisplay.ConsultStudentMenu(Menu);
+                        break;
 
-                // Ajouter une note à un élève (12)
-                if (Menu == MenuConst.ADD_GRADE_MENU)
-                {
-                    Menu = StudentMenuDisplay.AddGradeMenu(Menu);
-                }
+                    // Ajouter une note à un élève (12)
+                    case MenuConst.ADD_GRADE_MENU:
+                        Menu = StudentMenuDisplay.AddGradeMenu(Menu);
+                        break;
 
-                // Ajouter un cours (20)
-                if (Menu == MenuConst.ADD_SUBJECT_MENU)
-                {
-                    Menu = SubjectMenuDisplay.AddSubjectMenu(Menu);
-                }
+                    // Ajouter un cours (20)
+                    case MenuConst.ADD_SUBJECT_MENU:
+                        Menu = SubjectMenuDisplay.AddSubjectMenu(Menu);
+                        break;
 
-                // Supprimer un cours (21)
-                if (Menu == MenuConst.DELETE_SUBJECT_MENU)
-                {
-                    Menu = SubjectMenuDisplay.DeleteSubjectMenu(Menu);
-                }
+                    // Supprimer un cours (21)
+                    case MenuConst.DELETE_SUBJECT_MENU:
+                        Menu = SubjectMenuDisplay.DeleteSubjectMenu(Menu);
+                        break;
 
-                // Quitte l'application (-1)
-                if (Menu == MenuConst.EXIT_APP)
-                {
-                    Console.WriteLine("____________________");
-                    Console.WriteLine("Au revoir.");
-                    break;
+                    // Quitte l'application (-1)
+                    case MenuConst.EXIT_APP:
+                        goto End;
                 }
             }
+
+        End:
+            Console.WriteLine("____________________");
+            Console.WriteLine("Au revoir.");
         }
 
     }
