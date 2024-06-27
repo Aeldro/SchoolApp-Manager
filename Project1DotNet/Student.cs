@@ -21,54 +21,25 @@ namespace Project1DotNet
             this.Birthday = birthday;
         }
         // Méthodes "GET"
-        public List<Grade> GetGrades(int studentId, Database database)
+        public List<Grade> GetGrades()
         {
             List<Grade> studentGrades = new List<Grade>();
-            foreach (Grade grade in database.Grades)
+            List<Grade> grades = ListsManagement.GetGrades();
+
+            foreach (Grade grade in grades)
             {
-                if (grade.StudentId == studentId)
+                if (grade.StudentId == Id)
                 {
                     studentGrades.Add(grade);
                 }
             }
+
             return studentGrades;
         }
 
-        public double GetAverage(int studentId, Database database)
+        public double GetAverage()
         {
-            return GetGrades(studentId, database).Average(grade => grade.Score);
-        }
-
-        // Méthodes "SHOW"
-        public void ShowGrades(int studentId, Database database)
-        {
-            if (database.Grades.Any(grade => grade.StudentId == studentId))
-            {
-                foreach (Grade grade in database.Grades)
-                {
-                    if (grade.StudentId == studentId)
-                    {
-                        Subject currentSubject = database.GetSubject(grade.SubjectId);
-                        Console.Write("     Cours            ");
-                        Console.WriteLine($": {currentSubject.Name}");
-                        Console.Write("     Note             ");
-                        Console.WriteLine($": {grade.Score}/20");
-                        Console.Write("     Appréciation     ");
-                        Console.WriteLine($": {grade.Appreciation}");
-                        Console.WriteLine("");
-                    }
-                }
-            }
-            else Console.WriteLine("     Cet élève n'a pas encore de note.");
-        }
-
-        public void ShowAverage(int studentId, Database database)
-        {
-            if (database.Grades.Any(grade => grade.StudentId == studentId))
-            {
-                Console.Write("     Moyenne          ");
-                Console.WriteLine($": {Math.Round(GetGrades(studentId, database).Average(grade => grade.Score), 1)}/20");
-            }
+            return GetGrades().Average(grade => grade.Score);
         }
     }
 }
