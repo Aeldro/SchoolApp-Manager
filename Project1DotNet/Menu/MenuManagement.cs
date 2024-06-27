@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project1DotNet.Menu
+namespace Project1DotNet.menu
 {
     internal static class MenuManagement
     {

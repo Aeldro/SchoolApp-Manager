@@ -11,7 +11,7 @@ namespace Project1DotNet
 {
     internal static class ListsManagement
     {
-        private static Database database { get; } = new Database();
+        private static IDatabase database { get; } = new Database();
 
         // Méthodes "GET ALL"
         public static List<Student> GetStudents()

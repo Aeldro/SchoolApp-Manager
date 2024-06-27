@@ -10,9 +10,9 @@ namespace Project1DotNet
 {
     internal static class FilesManagement
     {
-        public const string StudentsPath = @"./../../../students.json";
-        public const string SubjectsPath = @"./../../../subjects.json";
-        public const string GradesPath = @"./../../../grades.json";
+        public const string StudentsPath = @"./../../../data/students.json";
+        public const string SubjectsPath = @"./../../../data/subjects.json";
+        public const string GradesPath = @"./../../../data/grades.json";
 
         // Méthodes "WRITEFILE"
         public static void WriteFile(List<Student> Students)

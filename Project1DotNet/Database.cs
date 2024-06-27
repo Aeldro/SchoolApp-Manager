@@ -10,7 +10,7 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace Project1DotNet
 {
-    internal class Database
+    internal class Database : IDatabase
     {
         public List<Student> Students { get; } = new List<Student>();
         public List<Subject> Subjects { get; } = new List<Subject>();

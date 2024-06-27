@@ -17,7 +17,7 @@ namespace Project1DotNet
         {
             this.Id = id;
             this.FirstName = firstName;
-            this.LastName = lastName;
+            this.LastName = lastName.ToUpper();
             this.Birthday = birthday;
         }
         // Méthodes "GET"

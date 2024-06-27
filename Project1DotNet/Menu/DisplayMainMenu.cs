@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Formats.Asn1.AsnWriter;
 
-namespace Project1DotNet.Menu
+namespace Project1DotNet.menu
 {
     internal class DisplayMainMenu
     {
