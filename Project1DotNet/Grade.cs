@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,40 @@ namespace Project1DotNet
             this.SubjectId = subjectId;
             this.Score = score;
             this.Appreciation = appreciation;
+        }
+
+        public Student GetStudent()
+        {
+            List<Student> students = ListsManagement.GetStudents();
+
+            foreach (Student el in students)
+            {
+                if (el.Id == this.StudentId)
+                {
+                    return el;
+                }
+            }
+
+            Console.WriteLine("Aucun étudiant ne correspond à cette note.");
+            Log.Error("No match found between the grade et the students list.");
+            return null;
+        }
+
+        public Subject GetSubject()
+        {
+            List<Subject> subjects = ListsManagement.GetSubjects();
+
+            foreach (Subject el in subjects)
+            {
+                if (el.Id == this.SubjectId)
+                {
+                    return el;
+                }
+            }
+
+            Console.WriteLine("Aucun cours ne correspond à cette note.");
+            Log.Error("No match found between the grade et the subjects list.");
+            return null;
         }
     }
 }
