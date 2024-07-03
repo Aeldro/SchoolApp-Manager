@@ -2,6 +2,7 @@
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,26 +11,30 @@ namespace Project1DotNet
 {
     internal static class FilesManagement
     {
-        public const string StudentsPath = @"./../../../data/students.json";
-        public const string SubjectsPath = @"./../../../data/subjects.json";
-        public const string GradesPath = @"./../../../data/grades.json";
+        public const string DataPath = @"./../../../data/";
+        public const string StudentsPath = DataPath + "students.json";
+        public const string SubjectsPath = DataPath + "subjects.json";
+        public const string GradesPath = DataPath + "grades.json";
 
         // Méthodes "WRITEFILE"
         public static void WriteFile(List<Student> Students)
         {
             string json = JsonConvert.SerializeObject(Students, Formatting.Indented);
+            Directory.CreateDirectory(DataPath);
             File.WriteAllText(StudentsPath, json);
 
         }
         public static void WriteFile(List<Subject> Subjects)
         {
             string json = JsonConvert.SerializeObject(Subjects, Formatting.Indented);
+            Directory.CreateDirectory(DataPath);
             File.WriteAllText(SubjectsPath, json);
 
         }
         public static void WriteFile(List<Grade> Grades)
         {
             string json = JsonConvert.SerializeObject(Grades, Formatting.Indented);
+            Directory.CreateDirectory(DataPath);
             File.WriteAllText(GradesPath, json);
 
         }
