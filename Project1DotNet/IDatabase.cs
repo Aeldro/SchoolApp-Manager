@@ -11,5 +11,6 @@ namespace Project1DotNet
         public List<Student> Students { get; }
         public List<Subject> Subjects { get; }
         public List<Grade> Grades { get; }
+        public List<Promotion> Promotions { get; }
     }
 }

@@ -35,6 +35,18 @@ namespace Project1DotNet
             Log.Information("Showed all the subjects.");
         }
 
+        public static void ShowAll(List<Promotion> promotions)
+        {
+            Console.WriteLine("____________________");
+            Console.WriteLine("Liste des promotions :");
+            foreach (Promotion el in promotions)
+            {
+                Console.Write(el.Id + " ");
+                Console.WriteLine(el.Name);
+            }
+            Log.Information("Showed all the promotions.");
+        }
+
         public static void Show(Student student)
         {
             Console.WriteLine("--------------------");
@@ -48,6 +60,8 @@ namespace Project1DotNet
             Console.WriteLine($": {student.LastName}");
             Console.Write("Date de naissance ");
             Console.WriteLine($": {student.Birthday.ToString("dd/MM/yyyy")}");
+            Console.Write("Promotion ");
+            Console.WriteLine($": {student.Promotion.Name}");
             Console.WriteLine("");
             Console.WriteLine("Résultats scolaires :");
             Console.WriteLine("");

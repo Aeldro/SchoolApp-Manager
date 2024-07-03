@@ -20,5 +20,11 @@ namespace Project1DotNet
             if (subjects.Count > 0) return subjects.Last().Id + 1;
             else return 0;
         }
+
+        public static int GenerateId(List<Promotion> promotions)
+        {
+            if (promotions.Count > 0) return promotions.Last().Id + 1;
+            else return 0;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Project1DotNet.Menu;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,36 +59,22 @@ namespace Project1DotNet.menu
             Log.Information($"User accesses the menu to add a student. Code menu: {menu}.");
 
             Console.WriteLine("____________________");
-            Console.WriteLine("Entrez le prénom de l'étudiant.");
-            string firstName = Console.ReadLine();
-            Log.Information($"User entered a firstname: {firstName}. Code menu: {menu}.");
-
-            Console.WriteLine("Entrez le nom de famille de l'étudiant.");
-            string lastName = Console.ReadLine().ToUpper();
-            Log.Information($"User entered a lastname: {lastName}. Code menu: {menu}.");
-
-            Console.WriteLine("Entrez la date de naissance de l'étudiant. (DD/MM/YYYY)");
-            string stringedBirthday = Console.ReadLine();
-            string dateFormat = "dd/MM/yyyy";
-            Log.Information($"User entered a birthday: {stringedBirthday}. Code menu: {menu}.");
-
+            string firstName = UserInputs.FirstNameInput(menu);
+            string lastName = UserInputs.LastNameInput(menu);
             DateTime birthday;
-            // Teste la validité de la date de naissance rentrée par l'utilisateur
+            Promotion promotion;
             try
             {
-                Log.Information($"Validity testing... {stringedBirthday}. Code menu: {menu}.");
-                birthday = DateTime.ParseExact(stringedBirthday, dateFormat, null);
-                Log.Information($"The birthday is valid: {birthday}. Code menu: {menu}.");
+                birthday = UserInputs.BirthdayInput(menu);
+                promotion = UserInputs.PromotionInput(menu);
             }
             catch (Exception ex)
             {
-                IncorrectInput.IncorrectBirthday();
-                Log.Error(ex, $"The birthday is not valid: {stringedBirthday}. Seems to failed converting string to DateTime. Code menu: {menu}.");
                 return menu;
             }
 
             List<Student> students = ListsManagement.GetStudents();
-            Student student = new Student(Generate.GenerateId(students), firstName, lastName, birthday);
+            Student student = new Student(Generate.GenerateId(students), firstName, lastName, birthday, promotion);
             ListsManagement.AddElement(student, students);
             return MenuConst.STUDENT_MENU;
         }

@@ -19,7 +19,8 @@ namespace Project1DotNet.menu
             Console.WriteLine("Choisissez une entrée :");
             Console.WriteLine("1: Élèves");
             Console.WriteLine("2: Cours");
-            Console.WriteLine("3: Quitter l'application");
+            Console.WriteLine("3: Promotions");
+            Console.WriteLine("4: Quitter l'application");
             try
             {
                 int userInput = Convert.ToInt32(Console.ReadLine());
@@ -30,6 +31,8 @@ namespace Project1DotNet.menu
                     case 2:
                         return MenuConst.SUBJECT_MENU;
                     case 3:
+                        return MenuConst.PROMOTION_MENU;
+                    case 4:
                         return MenuConst.EXIT_APP;
                     default:
                         IncorrectInput.IncorrectMenu();
@@ -43,7 +46,7 @@ namespace Project1DotNet.menu
             }
         }
 
-        
+
     }
 }
 

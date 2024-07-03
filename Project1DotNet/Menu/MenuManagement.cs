@@ -1,5 +1,4 @@
-﻿using Project1DotNet;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ namespace Project1DotNet.menu
         private static DisplayMainMenu MainMenuDisplay { get; } = new DisplayMainMenu();
         private static DisplayStudentMenu StudentMenuDisplay { get; } = new DisplayStudentMenu();
         private static DisplaySubjectMenu SubjectMenuDisplay { get; } = new DisplaySubjectMenu();
+        private static DisplayPromotionMenu PromotionMenuDisplay { get; } = new DisplayPromotionMenu();
         private static int Menu = MenuConst.MAIN_MENU;
 
         public static void RunMenu()
@@ -33,6 +33,11 @@ namespace Project1DotNet.menu
                     // Menu cours (2)
                     case MenuConst.SUBJECT_MENU:
                         Menu = SubjectMenuDisplay.SubjectMenu(Menu);
+                        break;
+
+                    // Menu promotion (3)
+                    case MenuConst.PROMOTION_MENU:
+                        Menu = PromotionMenuDisplay.PromotionMenu(Menu);
                         break;
 
                     // Ajouter un élève (10)

@@ -29,6 +29,11 @@ namespace Project1DotNet
             return database.Grades;
         }
 
+        public static List<Promotion> GetPromotions()
+        {
+            return database.Promotions;
+        }
+
         // Méthodes "GET FROM LIST"
         public static Student GetFromList(int id, List<Student> students)
         {
@@ -115,6 +120,23 @@ namespace Project1DotNet
                 Console.WriteLine($@"/!\ Une erreur est survenue lors de l'ajout du cours {subject.Name} à la base de données.");
                 Console.WriteLine(ex.ToString());
                 Log.Error(ex, $"Failed to add the subject {subject.Name} to database.");
+            }
+        }
+
+        public static void AddElement(Promotion promotion, List<Promotion> promotions)
+        {
+            try
+            {
+                promotions.Add(promotion);
+                database.Promotions.Add(promotion);
+                Console.WriteLine($"La promotion {promotion.Name} a bien été créée.");
+                Log.Information($"Promotion {promotion.Name} created.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($@"/!\ Une erreur est survenue lors de la création de la promotion {promotion.Name}.");
+                Console.WriteLine(ex.ToString());
+                Log.Error(ex, $"Failed to create the promotion {promotion.Name}.");
             }
         }
 
