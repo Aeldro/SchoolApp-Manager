@@ -11,42 +11,41 @@ namespace Project1DotNet
         // Fonction de saisie utilisateur incorrecte
         public static void IncorrectMenu()
         {
-            Console.WriteLine("____________________");
             Console.WriteLine(@"/!\ Saisie incorrecte. Veuillez utiliser le numéro affiché devant votre sélection.");
         }
 
         public static void NameAlreadyExists()
         {
-            Console.WriteLine("____________________");
             Console.WriteLine(@"/!\ Ce nom existe déjà.");
         }
 
         public static void InputTooShort()
         {
-            Console.WriteLine("____________________");
             Console.WriteLine(@"/!\ Cette entrée doit contenir au moins 2 caractères.");
         }
 
         public static void IncorrectBirthday()
         {
-            Console.WriteLine("____________________");
             Console.WriteLine(@"/!\ La date de naissance est incorrecte. Elle doit suivre le schéma suivant : DD/MM/YYYY.");
         }
 
         public static void IncorrectId()
         {
-            Console.WriteLine("____________________");
             Console.WriteLine(@"/!\ L'identifiant doit être un nombre existant.");
         }
 
         public static void IncorrectScore()
         {
-            Console.WriteLine("____________________");
             Console.WriteLine(@"/!\ La note doit être comprise entre 0 et 20.");
         }
+
+        public static void IncorrectValidation()
+        {
+            Console.WriteLine(@"/!\ Validation incorrecte. Utilisez y pour valider ou n pour annuler.");
+        }
+
         public static void IncorrectGlobal()
         {
-            Console.WriteLine("____________________");
             Console.WriteLine(@"/!\ Entrée incorrecte.");
         }
     }

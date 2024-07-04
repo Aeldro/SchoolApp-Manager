@@ -14,57 +14,62 @@ namespace Project1DotNet.menu
         public int PromotionMenu(int menu)
         {
             Log.Information($"User accesses the promotions menu. Code menu: {menu}.");
-            Console.WriteLine("____________________");
+
+            ColorSetter.InformationColor();
             Console.WriteLine("(Promotions) Choisissez une action à effectuer.");
             Console.WriteLine("1: Afficher les promotions");
             Console.WriteLine("2: Afficher les élèves d'une promotion");
             Console.WriteLine("3: Afficher la moyenne d'une promotion");
             Console.WriteLine("4: Revenir au menu principal");
             Console.WriteLine("5: Quitter l'application");
-            try
+            ColorSetter.Reset();
+
+            int userInput = UserInputsValidation.MenuInput(menu, new List<int> { 1, 2, 3, 4, 5 });
+            switch (userInput)
             {
-                int userInput = Convert.ToInt32(Console.ReadLine());
-                switch (userInput)
-                {
-                    case 1:
-                        List<Promotion> promotions = ListsManagement.GetPromotions();
-                        DisplayElement.ShowAll(promotions);
-                        return menu;
-                    case 2:
-                        return MenuConst.STUDENTS_PROMOTION_MENU;
-                    case 3:
-                        return MenuConst.AVERAGE_PROMOTION_MENU;
-                    case 4:
-                        return MenuConst.MAIN_MENU;
-                    case 5:
-                        return MenuConst.EXIT_APP;
-                    default:
-                        IncorrectInput.IncorrectMenu();
-                        return menu;
-                }
-            }
-            catch (Exception ex)
-            {
-                IncorrectInput.IncorrectMenu();
-                return menu;
+                case 1:
+                    List<Promotion> promotions = ListsManagement.GetPromotions();
+                    DisplayElement.ShowAll(promotions);
+                    return menu;
+                case 2:
+                    return MenuConst.STUDENTS_PROMOTION_MENU;
+                case 3:
+                    return MenuConst.AVERAGE_PROMOTION_MENU;
+                case 4:
+                    return MenuConst.MAIN_MENU;
+                case 5:
+                    return MenuConst.EXIT_APP;
+                default:
+                    IncorrectInput.IncorrectMenu();
+                    return menu;
             }
         }
 
         // Consulter les élèves d'une promotion (30)
         public int StudentPromotionMenu(int menu)
         {
+            Log.Information($"User accesses the menu to consult the students from a specific promotion. Code menu: {menu}.");
+
             List<Promotion> promotions = ListsManagement.GetPromotions();
 
-            Log.Information($"User accesses the menu to consult the students from a specific promotion. Code menu: {menu}.");
-            Promotion promotion;
-            try
+            // On vérifie que la base de données contienne au moins une promotion
+            if (promotions.Count == 0)
             {
-                promotion = UserInputsValidation.PromotionInput(menu);
+                ColorSetter.ErrorColor();
+                Console.WriteLine(@"/!\ La base de données ne contient aucune promotion.");
+                ColorSetter.Reset();
+                return MenuConst.PROMOTION_MENU;
             }
-            catch (Exception ex)
-            {
-                return menu;
-            }
+
+            DisplayElement.ShowAll(promotions);
+
+            ColorSetter.InformationColor();
+            Console.WriteLine("Entrez un numéro de promotion.");
+            ColorSetter.Reset();
+            int id = UserInputsValidation.IdInput(menu, promotions);
+
+            Promotion promotion = ListsManagement.GetFromList(id, promotions);
+
             List<Student> students = promotion.GetStudents();
             DisplayElement.ShowAll(students);
 
@@ -81,7 +86,9 @@ namespace Project1DotNet.menu
 
             List<Promotion> promotions = ListsManagement.GetPromotions();
 
+            ColorSetter.InformationColor();
             Console.WriteLine("Entrez un nom pour la nouvelle promotion.");
+            ColorSetter.Reset();
             string name = UserInputsValidation.NameInput(menu);
             Log.Information($"User entered a name for a new promotion. Code menu: {menu}.");
             Promotion promotion = new Promotion(Generate.GenerateId(promotions), name);

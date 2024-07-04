@@ -14,12 +14,13 @@ namespace Project1DotNet
         {
             if (students.Count == 0)
             {
-                Console.WriteLine("____________________");
-                Console.WriteLine("Aucun élève n'est enregistré.");
+                Console.WriteLine("--------------------");
+                Console.WriteLine("Aucun élève répertorié.");
+                Console.WriteLine("--------------------");
             }
             else
             {
-                Console.WriteLine("____________________");
+                Console.WriteLine("--------------------");
                 Console.WriteLine("Liste des élèves :");
                 foreach (Student student in students)
                 {
@@ -27,6 +28,7 @@ namespace Project1DotNet
                     Console.Write(student.FirstName + " ");
                     Console.WriteLine(student.LastName);
                 }
+                Console.WriteLine("--------------------");
             }
             Log.Information("Showed all the students.");
         }
@@ -36,7 +38,8 @@ namespace Project1DotNet
             if (subjects.Count == 0)
             {
                 Console.WriteLine("____________________");
-                Console.WriteLine("Aucun cours n'est enregistré.");
+                Console.WriteLine("Aucun cours répertorié.");
+                Console.WriteLine("--------------------");
             }
             else
             {
@@ -47,6 +50,7 @@ namespace Project1DotNet
                     Console.Write(el.Id + " ");
                     Console.WriteLine(el.Name);
                 }
+                Console.WriteLine("--------------------");
             }
             Log.Information("Showed all the subjects.");
         }
@@ -56,7 +60,8 @@ namespace Project1DotNet
             if (promotions.Count == 0)
             {
                 Console.WriteLine("____________________");
-                Console.WriteLine("Aucune promotion n'est enregistrée.");
+                Console.WriteLine("Aucune promotion répertoriée.");
+                Console.WriteLine("--------------------");
             }
             else
             {
@@ -67,6 +72,7 @@ namespace Project1DotNet
                     Console.Write(el.Id + " ");
                     Console.WriteLine(el.Name);
                 }
+                Console.WriteLine("--------------------");
             }
             Log.Information("Showed all the promotions.");
         }

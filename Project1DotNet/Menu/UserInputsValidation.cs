@@ -15,7 +15,7 @@ namespace Project1DotNet.Menu
             return NameInput(menu, new List<int>());
         }
 
-        public static string NameInput<T>(int menu, IEnumerable<T> list)
+        public static string NameInput<T>(int menu, IEnumerable<T> enumList)
         {
             while (true)
             {
@@ -27,11 +27,20 @@ namespace Project1DotNet.Menu
                     IncorrectInput.InputTooShort();
                     continue;
                 }
-                //Vérifie que le nom n'existe pas déjà si la méthode est appelée avec un second énumerable
-                if (list is List<Promotion> promoList)
+                //Vérifie que le nom n'existe pas déjà si la méthode est appelée avec un paramètre énumerable
+                if (enumList is List<Promotion> promotionsList)
                 {
                     List<Promotion> promotions = ListsManagement.GetPromotions();
-                    if (promoList.Any(el => el.Name == name))
+                    if (promotionsList.Any(el => el.Name == name))
+                    {
+                        IncorrectInput.NameAlreadyExists();
+                        continue;
+                    }
+                }
+                else if (enumList is List<Subject> subjectsList)
+                {
+                    List<Promotion> promotions = ListsManagement.GetPromotions();
+                    if (subjectsList.Any(el => el.Name == name))
                     {
                         IncorrectInput.NameAlreadyExists();
                         continue;
@@ -65,7 +74,7 @@ namespace Project1DotNet.Menu
             }
         }
 
-        public static int MenuInput(List<int> validInputs)
+        public static int MenuInput(int menu, List<int> validInputs)
         {
             while (true)
             {
@@ -87,7 +96,7 @@ namespace Project1DotNet.Menu
             }
         }
 
-        public static int IdInput(int menu, List<Promotion> list)
+        public static int IdInput<T>(int menu, IEnumerable<T> enumList)
         {
             while (true)
             {
@@ -95,7 +104,9 @@ namespace Project1DotNet.Menu
                 {
                     int id = Convert.ToInt32(Console.ReadLine());
                     Log.Information($"User entered an ID: {id}. Code menu: {menu}.");
-                    if (list.Any(el => el.Id == id)) return id;
+                    if (enumList is List<Student> studentsList && studentsList.Any(el => el.Id == id)) return id;
+                    else if (enumList is List<Subject> subjectsList && subjectsList.Any(el => el.Id == id)) return id;
+                    else if (enumList is List<Promotion> promotionsList && promotionsList.Any(el => el.Id == id)) return id;
                     else
                     {
                         IncorrectInput.IncorrectId();
@@ -105,85 +116,50 @@ namespace Project1DotNet.Menu
                 catch (Exception ex)
                 {
                     IncorrectInput.IncorrectId();
+                    Log.Error(ex, $"The user entered a wrong student ID. Seems to failed converting string to int. Code menu: {menu}.");
                     continue;
                 }
             }
         }
 
-        public static Promotion StudentPromotionInput(int menu)
+        public static double GradeInput(int menu)
         {
-            List<Promotion> promotions = ListsManagement.GetPromotions();
-            DisplayElement.ShowAll(promotions);
-
-            Console.WriteLine("Entrez le numéro de promotion de l'élève. (+ pour ajouter une nouvelle promotion)");
-            string stringedPromoId = Console.ReadLine();
-            Log.Information($"User entered an ID: {stringedPromoId}. Code menu: {menu}.");
-            int promoId;
-            Promotion promotion;
-            if (stringedPromoId == "+")
-            {
-                try { promotion = PromotionCreation(menu); }
-                catch (Exception ex)
-                {
-                    IncorrectInput.NameAlreadyExists();
-                    Log.Error(ex, $"The user entered a name that already exists. Code menu: {menu}.");
-                    throw;
-                }
-            }
-            else
+            while (true)
             {
                 try
                 {
-                    promoId = Convert.ToInt32(stringedPromoId);
-                    promotion = ListsManagement.GetFromList(promoId, promotions);
+                    double score = Convert.ToDouble(Console.ReadLine());
+                    if (score < 0 || score > 20)
+                    {
+                        IncorrectInput.IncorrectScore();
+                        Log.Error($"The user entered a wrong score. Must be between 0 and 20. Code menu: {menu}.");
+                        continue;
+                    }
+                    else return score;
                 }
                 catch (Exception ex)
                 {
-                    IncorrectInput.IncorrectId();
-                    Log.Error(ex, $"The user entered a wrong promotion ID. Seems to failed converting string to int. Code menu: {menu}.");
-                    throw;
+                    IncorrectInput.IncorrectScore();
+                    Log.Error(ex, $"The user entered a wrong score. Seems to failed converting string to double. Code menu: {menu}.");
+                    continue;
                 }
             }
-
-            return promotion;
         }
 
-        public static Promotion PromotionCreation(int menu)
+        public static string ValidationInput(int menu)
         {
-            List<Promotion> promotions = ListsManagement.GetPromotions();
-
-            Console.WriteLine("Entrez un nom pour la nouvelle promotion.");
-            string promoName = Console.ReadLine();
-            Log.Information($"User entered a name for a new promotion: {promoName}. Code menu: {menu}.");
-
-            if (promotions.Any(el => el.Name == promoName)) throw new Exception("This name already exists.");
-
-            Promotion promotion = new Promotion(Generate.GenerateId(promotions), promoName);
-            ListsManagement.AddElement(promotion, promotions);
-
-            return promotion;
-        }
-
-        public static Promotion PromotionInput(int menu)
-        {
-            List<Promotion> promotions = ListsManagement.GetPromotions();
-            DisplayElement.ShowAll(promotions);
-
-            Console.WriteLine("Entrez un numéro de promotion.");
-            int idPromo;
-            Promotion promotion;
-            try
+            while (true)
             {
-                idPromo = Convert.ToInt32(Console.ReadLine());
-                Log.Information($"User entered a promotion ID: {idPromo}. Code menu: {menu}.");
-                promotion = ListsManagement.GetFromList(idPromo, promotions);
-                return promotion;
-            }
-            catch (Exception ex)
-            {
-                IncorrectInput.IncorrectId();
-                Log.Error(ex, $"The user entered a wrong promotion ID. Seems to failed converting string to int. Code menu: {menu}.");
-                throw;
+                string validation = Console.ReadLine();
+                Log.Information($"User entered a validation: {validation}. Code menu: {menu}.");
+
+                if (validation == "y" || validation == "n") return validation;
+                else
+                {
+                    IncorrectInput.IncorrectValidation();
+                    Log.Error($"The user entered a wrong validation. Must be y or n. Code menu: {menu}.");
+                    continue;
+                }
             }
         }
     }
