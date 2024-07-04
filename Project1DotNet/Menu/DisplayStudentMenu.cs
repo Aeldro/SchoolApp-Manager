@@ -59,18 +59,53 @@ namespace Project1DotNet.menu
             Log.Information($"User accesses the menu to add a student. Code menu: {menu}.");
 
             Console.WriteLine("____________________");
-            string firstName = UserInputs.FirstNameInput(menu);
-            string lastName = UserInputs.LastNameInput(menu);
-            DateTime birthday;
-            Promotion promotion;
-            try
+
+            Console.WriteLine("Entrez le prénom de l'étudiant.");
+            string firstName = UserInputsValidation.NameInput(menu);
+            Log.Information($"Firstname set: {firstName}. Code menu: {menu}.");
+
+            Console.WriteLine("Entrez le nom de famille de l'étudiant.");
+            string lastName = UserInputsValidation.NameInput(menu);
+            Log.Information($"Lastname set: {lastName}. Code menu: {menu}.");
+
+            Console.WriteLine("Entrez la date de naissance de l'étudiant. (DD/MM/YYYY)");
+            DateTime birthday = UserInputsValidation.BirthdayInput(menu);
+            Log.Information($"Birthday set: {birthday}. Code menu: {menu}.");
+
+            List<Promotion> promotions = ListsManagement.GetPromotions();
+            DisplayElement.ShowAll(promotions);
+
+            int choice;
+            if (promotions.Count > 0)
             {
-                birthday = UserInputs.BirthdayInput(menu);
-                promotion = UserInputs.PromotionInput(menu);
+                Console.WriteLine("(Élèves) Choisissez une action à effectuer.");
+                Console.WriteLine("0: Attribuer l'élève à une promotion existante");
+                Console.WriteLine("1: Attribuer l'élève à une nouvelle promotion");
+                choice = UserInputsValidation.MenuInput(new List<int> { 0, 1 });
             }
-            catch (Exception ex)
+            else { choice = 1; }
+
+            Promotion promotion;
+            switch (choice)
             {
-                return menu;
+                case 0:
+                    Console.WriteLine("Entrez le numéro de promotion de l'élève.");
+                    int promoId = UserInputsValidation.IdInput(menu, promotions);
+                    promotion = ListsManagement.GetFromList(promoId, promotions);
+                    break;
+
+                case 1:
+                    Console.WriteLine("Entrez un nom pour la nouvelle promotion.");
+                    string promoName = UserInputsValidation.NameInput(menu, promotions);
+                    Log.Information($"User entered a name for a new promotion. Code menu: {menu}.");
+                    promotion = new Promotion(Generate.GenerateId(promotions), promoName);
+                    ListsManagement.AddElement(promotion, promotions);
+                    break;
+
+                default: //Grâce à la vérification de la variable choice via la méthode MenuInput, ce cas n'est jamais censé arriver
+                    IncorrectInput.IncorrectMenu();
+                    Log.Error(@$"/!\ This case wasn't supposed to happen. User managed to get through the menu verification. Code menu: {menu}.");
+                    return menu;
             }
 
             List<Student> students = ListsManagement.GetStudents();

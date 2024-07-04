@@ -61,6 +61,19 @@ namespace Project1DotNet
             return null;
         }
 
+        public static Promotion GetFromList(int id, List<Promotion> promotions)
+        {
+            foreach (Promotion promotion in promotions)
+            {
+                if (promotion.Id == id)
+                {
+                    return promotion;
+                }
+            }
+            Console.WriteLine(@"/!\ Aucune promotion ne correspond à cet identifiant.");
+            return null;
+        }
+
         public static List<Grade> GetFromList(Student student, List<Grade> grades)
         {
             List<Grade> studentGrades = new List<Grade>();
@@ -128,7 +141,6 @@ namespace Project1DotNet
             try
             {
                 promotions.Add(promotion);
-                database.Promotions.Add(promotion);
                 Console.WriteLine($"La promotion {promotion.Name} a bien été créée.");
                 Log.Information($"Promotion {promotion.Name} created.");
             }

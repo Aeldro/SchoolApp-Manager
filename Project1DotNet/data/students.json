@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 0,
+    "FirstName": "Nolan",
+    "LastName": "DE PUYDT",
+    "Birthday": "1993-01-10T00:00:00",
+    "Promotion": {
+      "Id": 0,
+      "Name": "Fev"
+    }
+  },
+  {
+    "Id": 1,
+    "FirstName": "David",
+    "LastName": "DODO",
+    "Birthday": "2003-05-05T00:00:00",
+    "Promotion": {
+      "Id": 1,
+      "Name": "Occ"
+    }
+  },
+  {
+    "Id": 2,
+    "FirstName": "Popo",
+    "LastName": "LAVI",
+    "Birthday": "2002-08-06T00:00:00",
+    "Promotion": {
+      "Id": 1,
+      "Name": "Occ"
+    }
+  }
+]

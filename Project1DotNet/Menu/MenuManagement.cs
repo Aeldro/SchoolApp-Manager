@@ -65,6 +65,21 @@ namespace Project1DotNet.menu
                         Menu = SubjectMenuDisplay.DeleteSubjectMenu(Menu);
                         break;
 
+                    // Consulter les élèves d'une promotion (30)
+                    case MenuConst.STUDENTS_PROMOTION_MENU:
+                        Menu = PromotionMenuDisplay.StudentPromotionMenu(Menu);
+                        break;
+
+                    // Consulter les moyennes d'une promotion (31)
+                    //case MenuConst.AVERAGE_PROMOTION_MENU:
+                    //    Menu = PromotionMenuDisplay.AveragePromotionMenu(Menu);
+                    //    break;                    
+
+                    // Ajouter une promotion (32)
+                    case MenuConst.ADD_PROMOTION_MENU:
+                        Menu = PromotionMenuDisplay.AddPromotionMenu(Menu);
+                        break;
+
                     // Quitte l'application (-1)
                     case MenuConst.EXIT_APP:
                         goto End;

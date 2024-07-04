@@ -12,37 +12,61 @@ namespace Project1DotNet
         // Méthodes "SHOW"
         public static void ShowAll(List<Student> students)
         {
-            Console.WriteLine("____________________");
-            Console.WriteLine("Liste des élèves :");
-            foreach (Student student in students)
+            if (students.Count == 0)
             {
-                Console.Write(student.Id + " ");
-                Console.Write(student.FirstName + " ");
-                Console.WriteLine(student.LastName);
+                Console.WriteLine("____________________");
+                Console.WriteLine("Aucun élève n'est enregistré.");
+            }
+            else
+            {
+                Console.WriteLine("____________________");
+                Console.WriteLine("Liste des élèves :");
+                foreach (Student student in students)
+                {
+                    Console.Write(student.Id + " ");
+                    Console.Write(student.FirstName + " ");
+                    Console.WriteLine(student.LastName);
+                }
             }
             Log.Information("Showed all the students.");
         }
 
         public static void ShowAll(List<Subject> subjects)
         {
-            Console.WriteLine("____________________");
-            Console.WriteLine("Liste des cours :");
-            foreach (Subject el in subjects)
+            if (subjects.Count == 0)
             {
-                Console.Write(el.Id + " ");
-                Console.WriteLine(el.Name);
+                Console.WriteLine("____________________");
+                Console.WriteLine("Aucun cours n'est enregistré.");
+            }
+            else
+            {
+                Console.WriteLine("____________________");
+                Console.WriteLine("Liste des cours :");
+                foreach (Subject el in subjects)
+                {
+                    Console.Write(el.Id + " ");
+                    Console.WriteLine(el.Name);
+                }
             }
             Log.Information("Showed all the subjects.");
         }
 
         public static void ShowAll(List<Promotion> promotions)
         {
-            Console.WriteLine("____________________");
-            Console.WriteLine("Liste des promotions :");
-            foreach (Promotion el in promotions)
+            if (promotions.Count == 0)
             {
-                Console.Write(el.Id + " ");
-                Console.WriteLine(el.Name);
+                Console.WriteLine("____________________");
+                Console.WriteLine("Aucune promotion n'est enregistrée.");
+            }
+            else
+            {
+                Console.WriteLine("____________________");
+                Console.WriteLine("Liste des promotions :");
+                foreach (Promotion el in promotions)
+                {
+                    Console.Write(el.Id + " ");
+                    Console.WriteLine(el.Name);
+                }
             }
             Log.Information("Showed all the promotions.");
         }
@@ -60,7 +84,7 @@ namespace Project1DotNet
             Console.WriteLine($": {student.LastName}");
             Console.Write("Date de naissance ");
             Console.WriteLine($": {student.Birthday.ToString("dd/MM/yyyy")}");
-            Console.Write("Promotion ");
+            Console.Write("Promotion         ");
             Console.WriteLine($": {student.Promotion.Name}");
             Console.WriteLine("");
             Console.WriteLine("Résultats scolaires :");

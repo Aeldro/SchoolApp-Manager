@@ -15,6 +15,18 @@ namespace Project1DotNet
             Console.WriteLine(@"/!\ Saisie incorrecte. Veuillez utiliser le numéro affiché devant votre sélection.");
         }
 
+        public static void NameAlreadyExists()
+        {
+            Console.WriteLine("____________________");
+            Console.WriteLine(@"/!\ Ce nom existe déjà.");
+        }
+
+        public static void InputTooShort()
+        {
+            Console.WriteLine("____________________");
+            Console.WriteLine(@"/!\ Cette entrée doit contenir au moins 2 caractères.");
+        }
+
         public static void IncorrectBirthday()
         {
             Console.WriteLine("____________________");

@@ -25,12 +25,11 @@ namespace Project1DotNet
 
             foreach (Student student in Students)
             {
-                if (student.Promotion != null)
+                if (student.Promotion != null && !this.Promotions.Any(el => el.Id == student.Promotion.Id))
                 {
                     this.Promotions.Add(student.Promotion);
                 }
             }
-            this.Promotions = this.Promotions.Distinct().ToList();
         }
     }
 }

@@ -35,5 +35,6 @@ namespace Project1DotNet.menu
         public const int PROMOTION_MENU = 3;
         public const int STUDENTS_PROMOTION_MENU = 30;
         public const int AVERAGE_PROMOTION_MENU = 31;
+        public const int ADD_PROMOTION_MENU = 32;
     }
 }

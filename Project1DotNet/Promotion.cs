@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project1DotNet
 {
-    internal class Promotion
+    internal class Promotion : Identifiable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,6 +15,13 @@ namespace Project1DotNet
         {
             this.Id = id;
             this.Name = name;
+        }
+
+        public List<Student> GetStudents()
+        {
+            List<Student> students = ListsManagement.GetStudents();
+            students = students.Where(el => el.Promotion.Id == this.Id).ToList();
+            return students;
         }
     }
 }

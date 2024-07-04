@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project1DotNet
 {
-    internal class Student
+    internal class Student : Identifiable
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

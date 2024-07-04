@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Project1DotNet.Menu;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,46 @@ namespace Project1DotNet.menu
                 IncorrectInput.IncorrectMenu();
                 return menu;
             }
+        }
+
+        // Consulter les élèves d'une promotion (30)
+        public int StudentPromotionMenu(int menu)
+        {
+            List<Promotion> promotions = ListsManagement.GetPromotions();
+
+            Log.Information($"User accesses the menu to consult the students from a specific promotion. Code menu: {menu}.");
+            Promotion promotion;
+            try
+            {
+                promotion = UserInputsValidation.PromotionInput(menu);
+            }
+            catch (Exception ex)
+            {
+                return menu;
+            }
+            List<Student> students = promotion.GetStudents();
+            DisplayElement.ShowAll(students);
+
+            return MenuConst.PROMOTION_MENU;
+        }
+
+        // Consulter les moyennes d'une promotion (31)
+
+
+        // Ajouter une promotion (32) (non utilisée pour l'instant)
+        public int AddPromotionMenu(int menu)
+        {
+            Log.Information($"User accesses the menu to add a promotion. Code menu: {menu}.");
+
+            List<Promotion> promotions = ListsManagement.GetPromotions();
+
+            Console.WriteLine("Entrez un nom pour la nouvelle promotion.");
+            string name = UserInputsValidation.NameInput(menu);
+            Log.Information($"User entered a name for a new promotion. Code menu: {menu}.");
+            Promotion promotion = new Promotion(Generate.GenerateId(promotions), name);
+            ListsManagement.AddElement(promotion, promotions);
+
+            return MenuConst.PROMOTION_MENU;
         }
 
     }
