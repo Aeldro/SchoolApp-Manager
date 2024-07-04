@@ -14,13 +14,15 @@ namespace Project1DotNet
         {
             if (students.Count == 0)
             {
-                Console.WriteLine("--------------------");
+                ColorSetter.WarningColor();
+                Console.WriteLine("");
                 Console.WriteLine("Aucun élève répertorié.");
-                Console.WriteLine("--------------------");
+                ColorSetter.Reset();
             }
             else
             {
-                Console.WriteLine("--------------------");
+                ColorSetter.InformationColor();
+                Console.WriteLine("");
                 Console.WriteLine("Liste des élèves :");
                 foreach (Student student in students)
                 {
@@ -28,7 +30,7 @@ namespace Project1DotNet
                     Console.Write(student.FirstName + " ");
                     Console.WriteLine(student.LastName);
                 }
-                Console.WriteLine("--------------------");
+                ColorSetter.Reset();
             }
             Log.Information("Showed all the students.");
         }
@@ -37,20 +39,22 @@ namespace Project1DotNet
         {
             if (subjects.Count == 0)
             {
-                Console.WriteLine("____________________");
+                ColorSetter.WarningColor();
+                Console.WriteLine("");
                 Console.WriteLine("Aucun cours répertorié.");
-                Console.WriteLine("--------------------");
+                ColorSetter.Reset();
             }
             else
             {
-                Console.WriteLine("____________________");
+                ColorSetter.InformationColor();
+                Console.WriteLine("");
                 Console.WriteLine("Liste des cours :");
                 foreach (Subject el in subjects)
                 {
                     Console.Write(el.Id + " ");
                     Console.WriteLine(el.Name);
                 }
-                Console.WriteLine("--------------------");
+                ColorSetter.Reset();
             }
             Log.Information("Showed all the subjects.");
         }
@@ -59,26 +63,30 @@ namespace Project1DotNet
         {
             if (promotions.Count == 0)
             {
-                Console.WriteLine("____________________");
+                ColorSetter.WarningColor();
+                Console.WriteLine("");
                 Console.WriteLine("Aucune promotion répertoriée.");
-                Console.WriteLine("--------------------");
+                ColorSetter.Reset();
             }
             else
             {
-                Console.WriteLine("____________________");
+                ColorSetter.InformationColor();
+                Console.WriteLine("");
                 Console.WriteLine("Liste des promotions :");
                 foreach (Promotion el in promotions)
                 {
                     Console.Write(el.Id + " ");
                     Console.WriteLine(el.Name);
                 }
-                Console.WriteLine("--------------------");
+                ColorSetter.Reset();
             }
             Log.Information("Showed all the promotions.");
         }
 
         public static void Show(Student student)
         {
+            ColorSetter.InformationColor();
+            Console.WriteLine("");
             Console.WriteLine("--------------------");
             Console.WriteLine("Informations sur l'élève :");
             Console.WriteLine("");
@@ -94,11 +102,11 @@ namespace Project1DotNet
             Console.WriteLine($": {student.Promotion.Name}");
             Console.WriteLine("");
             Console.WriteLine("Résultats scolaires :");
-            Console.WriteLine("");
             ShowGrades(student);
             ShowAverage(student);
-
             Console.WriteLine("--------------------");
+            ColorSetter.Reset();
+
             Log.Information($"Showed the student {student.Id} {student.FirstName} {student.LastName}.");
         }
 

@@ -15,14 +15,13 @@ namespace Project1DotNet.menu
         {
             Log.Information($"User accesses the subjects menu. Code menu: {menu}.");
 
-            ColorSetter.InformationColor();
+            Console.WriteLine("");
             Console.WriteLine("(Cours) Choisissez une action à effectuer.");
             Console.WriteLine("1: Afficher les cours");
             Console.WriteLine("2: Ajouter un nouveau cours");
             Console.WriteLine("3: Supprimer un cours");
             Console.WriteLine("4: Revenir au menu principal");
             Console.WriteLine("5: Quitter l'application");
-            ColorSetter.Reset();
 
             int userInput = UserInputsValidation.MenuInput(menu, new List<int> { 1, 2, 3, 4, 5 });
             switch (userInput)
@@ -32,7 +31,7 @@ namespace Project1DotNet.menu
                     DisplayElement.ShowAll(subjects);
                     return menu;
                 case 2:
-                    return MenuConst.ADD_GRADE_MENU;
+                    return MenuConst.ADD_SUBJECT_MENU;
                 case 3:
                     return MenuConst.DELETE_SUBJECT_MENU;
                 case 4:
@@ -40,7 +39,7 @@ namespace Project1DotNet.menu
                 case 5:
                     return MenuConst.EXIT_APP;
                 default:
-                    IncorrectInput.IncorrectMenu();
+                    DisplayIncorrectInput.IncorrectMenu();
                     return menu;
             }
         }
@@ -52,9 +51,8 @@ namespace Project1DotNet.menu
 
             List<Subject> subjects = ListsManagement.GetSubjects();
 
-            ColorSetter.InformationColor();
+            Console.WriteLine("");
             Console.WriteLine("Choisissez un nom pour le nouveau cours.");
-            ColorSetter.Reset();
             Log.Information($"User is asked for a subject name. Code menu: {menu}.");
             string nameInput = UserInputsValidation.NameInput(menu, subjects);
             Log.Information($"User entered a subject name: {nameInput}. Code menu: {menu}.");
@@ -75,6 +73,7 @@ namespace Project1DotNet.menu
             if (subjects.Count == 0)
             {
                 ColorSetter.ErrorColor();
+                Console.WriteLine("");
                 Console.WriteLine(@"/!\ La base de données ne contient aucun cours.");
                 ColorSetter.Reset();
                 return MenuConst.SUBJECT_MENU;
@@ -82,6 +81,7 @@ namespace Project1DotNet.menu
 
             DisplayElement.ShowAll(subjects);
             ColorSetter.InformationColor();
+            Console.WriteLine("");
             Console.WriteLine("Entrez l'identifiant du cours à supprimer.");
             ColorSetter.Reset();
 
@@ -90,6 +90,7 @@ namespace Project1DotNet.menu
             Log.Information($"User entered a subject ID to delete a subject: {idSubjectInput}. Code menu: {menu}.");
 
             ColorSetter.WarningColor();
+            Console.WriteLine("");
             Console.WriteLine($"La suppression de ce cours entraînement la suppression de toutes les notes qui lui sont associées. Confirmer? (y/n)");
             ColorSetter.Reset();
             Log.Information($"User is asked to validate the subject removal. ID to remove: {idSubjectInput}. Code menu: {menu}.");
@@ -99,6 +100,7 @@ namespace Project1DotNet.menu
             {
                 Log.Information($"User canceled the subject removal: {confirmInput}. Code menu: {menu}.");
                 ColorSetter.InformationColor();
+                Console.WriteLine("");
                 Console.WriteLine(@"/!\ La suppression du cours a été annulée.");
                 ColorSetter.Reset();
 

@@ -24,7 +24,7 @@ namespace Project1DotNet.Menu
                 //Vérifie que la longueur du nom est de 1 caractère minimum
                 if (name.Length <= 1)
                 {
-                    IncorrectInput.InputTooShort();
+                    DisplayIncorrectInput.InputTooShort();
                     continue;
                 }
                 //Vérifie que le nom n'existe pas déjà si la méthode est appelée avec un paramètre énumerable
@@ -33,7 +33,7 @@ namespace Project1DotNet.Menu
                     List<Promotion> promotions = ListsManagement.GetPromotions();
                     if (promotionsList.Any(el => el.Name == name))
                     {
-                        IncorrectInput.NameAlreadyExists();
+                        DisplayIncorrectInput.NameAlreadyExists();
                         continue;
                     }
                 }
@@ -42,7 +42,7 @@ namespace Project1DotNet.Menu
                     List<Promotion> promotions = ListsManagement.GetPromotions();
                     if (subjectsList.Any(el => el.Name == name))
                     {
-                        IncorrectInput.NameAlreadyExists();
+                        DisplayIncorrectInput.NameAlreadyExists();
                         continue;
                     }
                 }
@@ -66,7 +66,7 @@ namespace Project1DotNet.Menu
                 }
                 catch (Exception ex)
                 {
-                    IncorrectInput.IncorrectBirthday();
+                    DisplayIncorrectInput.IncorrectBirthday();
                     Log.Error(ex, $"The birthday is not valid: {stringedBirthday}. Seems to failed converting string to DateTime. Code menu: {menu}.");
                     continue;
                 }
@@ -84,13 +84,13 @@ namespace Project1DotNet.Menu
                     if (validInputs.Contains(choice)) return choice;
                     else
                     {
-                        IncorrectInput.IncorrectMenu();
+                        DisplayIncorrectInput.IncorrectMenu();
                         continue;
                     }
                 }
                 catch (Exception ex)
                 {
-                    IncorrectInput.IncorrectMenu();
+                    DisplayIncorrectInput.IncorrectMenu();
                     continue;
                 }
             }
@@ -109,13 +109,13 @@ namespace Project1DotNet.Menu
                     else if (enumList is List<Promotion> promotionsList && promotionsList.Any(el => el.Id == id)) return id;
                     else
                     {
-                        IncorrectInput.IncorrectId();
+                        DisplayIncorrectInput.IncorrectId();
                         continue;
                     }
                 }
                 catch (Exception ex)
                 {
-                    IncorrectInput.IncorrectId();
+                    DisplayIncorrectInput.IncorrectId();
                     Log.Error(ex, $"The user entered a wrong student ID. Seems to failed converting string to int. Code menu: {menu}.");
                     continue;
                 }
@@ -131,7 +131,7 @@ namespace Project1DotNet.Menu
                     double score = Convert.ToDouble(Console.ReadLine());
                     if (score < 0 || score > 20)
                     {
-                        IncorrectInput.IncorrectScore();
+                        DisplayIncorrectInput.IncorrectScore();
                         Log.Error($"The user entered a wrong score. Must be between 0 and 20. Code menu: {menu}.");
                         continue;
                     }
@@ -139,7 +139,7 @@ namespace Project1DotNet.Menu
                 }
                 catch (Exception ex)
                 {
-                    IncorrectInput.IncorrectScore();
+                    DisplayIncorrectInput.IncorrectScore();
                     Log.Error(ex, $"The user entered a wrong score. Seems to failed converting string to double. Code menu: {menu}.");
                     continue;
                 }
@@ -156,7 +156,7 @@ namespace Project1DotNet.Menu
                 if (validation == "y" || validation == "n") return validation;
                 else
                 {
-                    IncorrectInput.IncorrectValidation();
+                    DisplayIncorrectInput.IncorrectValidation();
                     Log.Error($"The user entered a wrong validation. Must be y or n. Code menu: {menu}.");
                     continue;
                 }

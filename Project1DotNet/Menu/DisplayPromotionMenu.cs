@@ -15,14 +15,13 @@ namespace Project1DotNet.menu
         {
             Log.Information($"User accesses the promotions menu. Code menu: {menu}.");
 
-            ColorSetter.InformationColor();
+            Console.WriteLine("");
             Console.WriteLine("(Promotions) Choisissez une action à effectuer.");
             Console.WriteLine("1: Afficher les promotions");
             Console.WriteLine("2: Afficher les élèves d'une promotion");
             Console.WriteLine("3: Afficher la moyenne d'une promotion");
             Console.WriteLine("4: Revenir au menu principal");
             Console.WriteLine("5: Quitter l'application");
-            ColorSetter.Reset();
 
             int userInput = UserInputsValidation.MenuInput(menu, new List<int> { 1, 2, 3, 4, 5 });
             switch (userInput)
@@ -40,7 +39,7 @@ namespace Project1DotNet.menu
                 case 5:
                     return MenuConst.EXIT_APP;
                 default:
-                    IncorrectInput.IncorrectMenu();
+                    DisplayIncorrectInput.IncorrectMenu();
                     return menu;
             }
         }
@@ -56,6 +55,7 @@ namespace Project1DotNet.menu
             if (promotions.Count == 0)
             {
                 ColorSetter.ErrorColor();
+                Console.WriteLine("");
                 Console.WriteLine(@"/!\ La base de données ne contient aucune promotion.");
                 ColorSetter.Reset();
                 return MenuConst.PROMOTION_MENU;
@@ -63,9 +63,8 @@ namespace Project1DotNet.menu
 
             DisplayElement.ShowAll(promotions);
 
-            ColorSetter.InformationColor();
+            Console.WriteLine("");
             Console.WriteLine("Entrez un numéro de promotion.");
-            ColorSetter.Reset();
             int id = UserInputsValidation.IdInput(menu, promotions);
 
             Promotion promotion = ListsManagement.GetFromList(id, promotions);
@@ -86,9 +85,8 @@ namespace Project1DotNet.menu
 
             List<Promotion> promotions = ListsManagement.GetPromotions();
 
-            ColorSetter.InformationColor();
+            Console.WriteLine("");
             Console.WriteLine("Entrez un nom pour la nouvelle promotion.");
-            ColorSetter.Reset();
             string name = UserInputsValidation.NameInput(menu);
             Log.Information($"User entered a name for a new promotion. Code menu: {menu}.");
             Promotion promotion = new Promotion(Generate.GenerateId(promotions), name);

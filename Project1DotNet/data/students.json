@@ -28,5 +28,15 @@
       "Id": 1,
       "Name": "Occ"
     }
+  },
+  {
+    "Id": 3,
+    "FirstName": "Sam",
+    "LastName": "FG",
+    "Birthday": "2005-04-25T00:00:00",
+    "Promotion": {
+      "Id": 1,
+      "Name": "Occ"
+    }
   }
 ]

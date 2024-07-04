@@ -34,7 +34,7 @@ namespace Project1DotNet
 
         public static void SuccessColor()
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Green;
         }
 
         public static void Reset()

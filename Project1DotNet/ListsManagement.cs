@@ -44,7 +44,10 @@ namespace Project1DotNet
                     return student;
                 }
             }
+            ColorSetter.ErrorColor();
+            Console.WriteLine("");
             Console.WriteLine(@"/!\ Aucun étudiant ne correspond à cet identifiant.");
+            ColorSetter.Reset();
             return null;
         }
 
@@ -57,7 +60,10 @@ namespace Project1DotNet
                     return subject;
                 }
             }
+            ColorSetter.ErrorColor();
+            Console.WriteLine("");
             Console.WriteLine(@"/!\ Aucun cours ne correspond à cet identifiant.");
+            ColorSetter.Reset();
             return null;
         }
 
@@ -70,7 +76,10 @@ namespace Project1DotNet
                     return promotion;
                 }
             }
+            ColorSetter.ErrorColor();
+            Console.WriteLine("");
             Console.WriteLine(@"/!\ Aucune promotion ne correspond à cet identifiant.");
+            ColorSetter.Reset();
             return null;
         }
 
@@ -107,13 +116,19 @@ namespace Project1DotNet
             {
                 students.Add(student);
                 FilesManagement.WriteFile(students);
+                ColorSetter.SuccessColor();
+                Console.WriteLine("");
                 Console.WriteLine($"L'étudiant {student.Id} {student.FirstName} {student.LastName} a bien été ajouté.");
+                ColorSetter.Reset();
                 Log.Information($"Student {student.Id} {student.FirstName} {student.LastName} added to database.");
 
             }
             catch (Exception ex)
             {
+                ColorSetter.ErrorColor();
+                Console.WriteLine("");
                 Console.WriteLine($@"/!\ Une erreur est survenue lors de l'ajout de l'étudiant {student.Id} {student.FirstName} {student.LastName} à la base de données.");
+                ColorSetter.Reset();
                 Console.WriteLine(ex.ToString());
                 Log.Error(ex, $"Failed to add the student {student.Id} {student.FirstName} {student.LastName} to database.");
             }
@@ -124,13 +139,19 @@ namespace Project1DotNet
             {
                 subjects.Add(subject);
                 FilesManagement.WriteFile(subjects);
+                ColorSetter.SuccessColor();
+                Console.WriteLine("");
                 Console.WriteLine($"Le cours {subject.Name} a bien été ajouté.");
+                ColorSetter.Reset();
                 Log.Information($"Subject {subject.Name} added to database.");
 
             }
             catch (Exception ex)
             {
+                ColorSetter.ErrorColor();
+                Console.WriteLine("");
                 Console.WriteLine($@"/!\ Une erreur est survenue lors de l'ajout du cours {subject.Name} à la base de données.");
+                ColorSetter.Reset();
                 Console.WriteLine(ex.ToString());
                 Log.Error(ex, $"Failed to add the subject {subject.Name} to database.");
             }
@@ -141,12 +162,18 @@ namespace Project1DotNet
             try
             {
                 promotions.Add(promotion);
+                ColorSetter.SuccessColor();
+                Console.WriteLine("");
                 Console.WriteLine($"La promotion {promotion.Name} a bien été créée.");
+                ColorSetter.Reset();
                 Log.Information($"Promotion {promotion.Name} created.");
             }
             catch (Exception ex)
             {
+                ColorSetter.ErrorColor();
+                Console.WriteLine("");
                 Console.WriteLine($@"/!\ Une erreur est survenue lors de la création de la promotion {promotion.Name}.");
+                ColorSetter.Reset();
                 Console.WriteLine(ex.ToString());
                 Log.Error(ex, $"Failed to create the promotion {promotion.Name}.");
             }
@@ -158,12 +185,18 @@ namespace Project1DotNet
             {
                 grades.Add(new Grade(student.Id, subject.Id, score, appreciation));
                 FilesManagement.WriteFile(grades);
+                ColorSetter.SuccessColor();
+                Console.WriteLine("");
                 Console.WriteLine($"Un {score}/20 en {subject.Name} a été ajoutée à {student.FirstName} {student.LastName}.");
+                ColorSetter.Reset();
                 Log.Information($"{score}/20 added to database in {subject.Name} for the student {student.Id} {student.FirstName} {student.LastName}.");
             }
             catch (Exception ex)
             {
+                ColorSetter.ErrorColor();
+                Console.WriteLine("");
                 Console.WriteLine(@"/!\ Une erreur est survenue lors de l'ajout de la note à la base de données.");
+                ColorSetter.Reset();
                 Console.WriteLine(ex.ToString());
                 Log.Error(ex, $"Failed to add the grade to database. Grade: {score}/20");
 
@@ -183,12 +216,18 @@ namespace Project1DotNet
                 FilesManagement.WriteFile(subjects);
                 Log.Information($"The subject has been removed from database. Subject: {subject.Id} {subject.Name}.");
 
+                ColorSetter.SuccessColor();
+                Console.WriteLine("");
                 Console.WriteLine($"Le cours {subject.Name} et ses notes associées ont bien été supprimés.");
+                ColorSetter.Reset();
 
             }
             catch (Exception ex)
             {
+                ColorSetter.ErrorColor();
+                Console.WriteLine("");
                 Console.WriteLine(@"/!\ Une erreur est survenue lors de la suppression du cours ou des notes associées.");
+                ColorSetter.Reset();
                 Console.WriteLine(ex.ToString());
                 Log.Error(ex, $"Failed to delete the subject from database. Subject ID: {subject.Id} {subject.Name}.");
             }

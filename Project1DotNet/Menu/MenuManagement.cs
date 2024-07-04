@@ -87,8 +87,10 @@ namespace Project1DotNet.menu
             }
 
         End:
-            Console.WriteLine("____________________");
+            ColorSetter.InformationColor();
+            Console.WriteLine("");
             Console.WriteLine("Au revoir.");
+            ColorSetter.Reset();
         }
 
     }
