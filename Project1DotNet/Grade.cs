@@ -34,7 +34,7 @@ namespace Project1DotNet
                 }
             }
 
-            Console.WriteLine("Aucun étudiant ne correspond à cette note.");
+            ColorSetter.WriteLine("Aucun étudiant ne correspond à cette note.", ColorSetter.Error);
             Log.Error("No match found between the grade et the students list.");
             return null;
         }
@@ -51,7 +51,7 @@ namespace Project1DotNet
                 }
             }
 
-            Console.WriteLine("Aucun cours ne correspond à cette note.");
+            ColorSetter.WriteLine("Aucun cours ne correspond à cette note.", ColorSetter.Error);
             Log.Error("No match found between the grade et the subjects list.");
             return null;
         }
