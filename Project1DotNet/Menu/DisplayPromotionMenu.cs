@@ -54,10 +54,8 @@ namespace Project1DotNet.menu
             // On vérifie que la base de données contienne au moins une promotion
             if (promotions.Count == 0)
             {
-                ColorSetter.ErrorColor();
                 Console.WriteLine("");
-                Console.WriteLine(@"/!\ La base de données ne contient aucune promotion.");
-                ColorSetter.Reset();
+                ColorSetter.WriteLine(@"/!\ La base de données ne contient aucune promotion.", ColorSetter.Error);
                 return MenuConst.PROMOTION_MENU;
             }
 
@@ -76,7 +74,31 @@ namespace Project1DotNet.menu
         }
 
         // Consulter les moyennes d'une promotion (31)
+        public int AveragePromotionMenu(int menu)
+        {
+            Log.Information($"User accesses the menu to consult the average from a specific promotion. Code menu: {menu}.");
 
+            List<Promotion> promotions = ListsManagement.GetPromotions();
+
+            // On vérifie que la base de données contienne au moins une promotion
+            if (promotions.Count == 0)
+            {
+                Console.WriteLine("");
+                ColorSetter.WriteLine(@"/!\ La base de données ne contient aucune promotion.", ColorSetter.Error);
+                return MenuConst.PROMOTION_MENU;
+            }
+
+            DisplayElement.ShowAll(promotions);
+
+            Console.WriteLine("");
+            Console.WriteLine("Entrez un numéro de promotion.");
+            int id = UserInputsValidation.IdInput(menu, promotions);
+
+            Promotion promotion = ListsManagement.GetFromList(id, promotions);
+            DisplayElement.ShowAverage(promotion);
+
+            return MenuConst.PROMOTION_MENU;
+        }
 
         // Ajouter une promotion (32) (non utilisée pour l'instant)
         public int AddPromotionMenu(int menu)

@@ -8,38 +8,26 @@ namespace Project1DotNet
 {
     internal static class ColorSetter
     {
-        public static readonly ConsoleColor originalForegroundColor;
-        public static readonly ConsoleColor originalBackgroundColor;
+        public static readonly ConsoleColor Original;
+        public const ConsoleColor Information = ConsoleColor.DarkCyan;
+        public const ConsoleColor Error = ConsoleColor.Red;
+        public const ConsoleColor Warning = ConsoleColor.Yellow;
+        public const ConsoleColor Success = ConsoleColor.Green;
 
-        static ColorSetter()
+        static ColorSetter() { Original = Console.ForegroundColor; }
+
+        public static void Write(string message, ConsoleColor nature)
         {
-            originalForegroundColor = Console.ForegroundColor;
-            originalBackgroundColor = Console.BackgroundColor;
+            Console.ForegroundColor = nature;
+            Console.Write(message);
+            Console.ForegroundColor = Original;
         }
 
-        public static void InformationColor()
+        public static void WriteLine(string message, ConsoleColor nature)
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-        }
-
-        public static void ErrorColor()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-        }
-
-        public static void WarningColor()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-        }
-
-        public static void SuccessColor()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-        }
-
-        public static void Reset()
-        {
-            Console.ForegroundColor = originalForegroundColor;
+            Console.ForegroundColor = nature;
+            Console.WriteLine(message);
+            Console.ForegroundColor = Original;
         }
     }
 }

@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "StudentId": 4,
+    "SubjectId": 0,
+    "Score": 12.0,
+    "Appreciation": ""
+  }
+]

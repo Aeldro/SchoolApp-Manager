@@ -11,66 +11,50 @@ namespace Project1DotNet
         // Fonction de saisie utilisateur incorrecte
         public static void IncorrectMenu()
         {
-            ColorSetter.ErrorColor();
             Console.WriteLine("");
-            Console.WriteLine(@"/!\ Saisie incorrecte. Veuillez utiliser le numéro affiché devant votre sélection.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine(@"/!\ Saisie incorrecte. Veuillez utiliser le numéro affiché devant votre sélection.", ColorSetter.Error);
         }
 
         public static void NameAlreadyExists()
         {
-            ColorSetter.ErrorColor();
             Console.WriteLine("");
-            Console.WriteLine(@"/!\ Ce nom existe déjà.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine(@"/!\ Ce nom existe déjà.", ColorSetter.Error);
         }
 
         public static void InputTooShort()
         {
-            ColorSetter.ErrorColor();
             Console.WriteLine("");
-            Console.WriteLine(@"/!\ Cette entrée doit contenir au moins 2 caractères.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine(@"/!\ Cette entrée doit contenir au moins 2 caractères.", ColorSetter.Error);
         }
 
         public static void IncorrectBirthday()
         {
-            ColorSetter.ErrorColor();
             Console.WriteLine("");
-            Console.WriteLine(@"/!\ La date de naissance est incorrecte. Elle doit suivre le schéma suivant : DD/MM/YYYY.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine(@"/!\ La date de naissance est incorrecte. Elle doit suivre le schéma suivant : DD/MM/YYYY.", ColorSetter.Error);
         }
 
         public static void IncorrectId()
         {
-            ColorSetter.ErrorColor();
             Console.WriteLine("");
-            Console.WriteLine(@"/!\ L'identifiant doit être un nombre existant.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine(@"/!\ L'identifiant doit être un nombre existant.", ColorSetter.Error);
         }
 
         public static void IncorrectScore()
         {
-            ColorSetter.ErrorColor();
             Console.WriteLine("");
-            Console.WriteLine(@"/!\ La note doit être comprise entre 0 et 20.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine(@"/!\ La note doit être comprise entre 0 et 20.", ColorSetter.Error);
         }
 
         public static void IncorrectValidation()
         {
-            ColorSetter.ErrorColor();
             Console.WriteLine("");
-            Console.WriteLine(@"/!\ Validation incorrecte. Utilisez y pour valider ou n pour annuler.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine(@"/!\ Validation incorrecte. Utilisez y pour valider ou n pour annuler.", ColorSetter.Error);
         }
 
         public static void IncorrectGlobal()
         {
-            ColorSetter.ErrorColor();
             Console.WriteLine("");
-            Console.WriteLine(@"/!\ Entrée incorrecte.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine(@"/!\ Entrée incorrecte.", ColorSetter.Error);
         }
     }
 }

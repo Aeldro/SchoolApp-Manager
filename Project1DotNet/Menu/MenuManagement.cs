@@ -71,9 +71,9 @@ namespace Project1DotNet.menu
                         break;
 
                     // Consulter les moyennes d'une promotion (31)
-                    //case MenuConst.AVERAGE_PROMOTION_MENU:
-                    //    Menu = PromotionMenuDisplay.AveragePromotionMenu(Menu);
-                    //    break;                    
+                    case MenuConst.AVERAGE_PROMOTION_MENU:
+                        Menu = PromotionMenuDisplay.AveragePromotionMenu(Menu);
+                        break;
 
                     // Ajouter une promotion (32)
                     case MenuConst.ADD_PROMOTION_MENU:
@@ -87,10 +87,8 @@ namespace Project1DotNet.menu
             }
 
         End:
-            ColorSetter.InformationColor();
             Console.WriteLine("");
-            Console.WriteLine("Au revoir.");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine("Au revoir.", ColorSetter.Information);
         }
 
     }

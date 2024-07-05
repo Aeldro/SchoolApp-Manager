@@ -72,37 +72,29 @@ namespace Project1DotNet.menu
             // On vérifie que la base de données contienne au moins un cours
             if (subjects.Count == 0)
             {
-                ColorSetter.ErrorColor();
                 Console.WriteLine("");
-                Console.WriteLine(@"/!\ La base de données ne contient aucun cours.");
-                ColorSetter.Reset();
+                ColorSetter.WriteLine(@"/!\ La base de données ne contient aucun cours.", ColorSetter.Error);
                 return MenuConst.SUBJECT_MENU;
             }
 
             DisplayElement.ShowAll(subjects);
-            ColorSetter.InformationColor();
             Console.WriteLine("");
             Console.WriteLine("Entrez l'identifiant du cours à supprimer.");
-            ColorSetter.Reset();
 
             Log.Information($"User is asked for subject ID to delete a subject. Code menu: {menu}.");
             int idSubjectInput = UserInputsValidation.IdInput(menu, subjects);
             Log.Information($"User entered a subject ID to delete a subject: {idSubjectInput}. Code menu: {menu}.");
 
-            ColorSetter.WarningColor();
             Console.WriteLine("");
-            Console.WriteLine($"La suppression de ce cours entraînement la suppression de toutes les notes qui lui sont associées. Confirmer? (y/n)");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine($"La suppression de ce cours entraînement la suppression de toutes les notes qui lui sont associées. Confirmer? (y/n)", ColorSetter.Warning);
             Log.Information($"User is asked to validate the subject removal. ID to remove: {idSubjectInput}. Code menu: {menu}.");
             string confirmInput = UserInputsValidation.ValidationInput(menu);
             Log.Information($"User entered a validation answer: {confirmInput}. Code menu: {menu}.");
             if (confirmInput == "n")
             {
                 Log.Information($"User canceled the subject removal: {confirmInput}. Code menu: {menu}.");
-                ColorSetter.InformationColor();
                 Console.WriteLine("");
-                Console.WriteLine(@"/!\ La suppression du cours a été annulée.");
-                ColorSetter.Reset();
+                ColorSetter.WriteLine(@"/!\ La suppression du cours a été annulée.", ColorSetter.Information);
 
                 return MenuConst.SUBJECT_MENU;
             }

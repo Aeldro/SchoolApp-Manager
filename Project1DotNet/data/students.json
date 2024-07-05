@@ -38,5 +38,15 @@
       "Id": 1,
       "Name": "Occ"
     }
+  },
+  {
+    "Id": 4,
+    "FirstName": "Lou",
+    "LastName": "VALE",
+    "Birthday": "2005-09-20T00:00:00",
+    "Promotion": {
+      "Id": 2,
+      "Name": "Coucou"
+    }
   }
 ]

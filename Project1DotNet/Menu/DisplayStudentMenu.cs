@@ -123,18 +123,14 @@ namespace Project1DotNet.menu
             // On vérifie que la base de données contienne au moins un étudiant
             if (students.Count == 0)
             {
-                ColorSetter.ErrorColor();
                 Console.WriteLine("");
-                Console.WriteLine(@"/!\ La base de données ne contient aucun étudiant.");
-                ColorSetter.Reset();
+                ColorSetter.WriteLine(@"/!\ La base de données ne contient aucun étudiant.", ColorSetter.Error);
                 return MenuConst.STUDENT_MENU;
             }
 
             DisplayElement.ShowAll(students);
-            ColorSetter.InformationColor();
             Console.WriteLine("");
             Console.WriteLine("Entrez le numéro d'identifiant de l'étudiant.");
-            ColorSetter.Reset();
             int id = UserInputsValidation.IdInput(menu, students);
             Log.Information($"User entered a valid student ID: {id}. Code menu: {menu}.");
             Student student = ListsManagement.GetFromList(id, students);
@@ -154,18 +150,14 @@ namespace Project1DotNet.menu
             // On vérifie que la base de données contienne au moins un étudiant et un cours
             if (students.Count == 0)
             {
-                ColorSetter.ErrorColor();
                 Console.WriteLine("");
-                Console.WriteLine(@"/!\ La base de données ne contient aucun étudiant.");
-                ColorSetter.Reset();
+                ColorSetter.WriteLine(@"/!\ La base de données ne contient aucun étudiant.", ColorSetter.Error);
                 return MenuConst.STUDENT_MENU;
             }
             else if (subjects.Count == 0)
             {
-                ColorSetter.ErrorColor();
                 Console.WriteLine("");
-                Console.WriteLine(@"/!\ La base de données ne contient aucun cours.");
-                ColorSetter.Reset();
+                ColorSetter.WriteLine(@"/!\ La base de données ne contient aucun cours.", ColorSetter.Error);
                 return MenuConst.STUDENT_MENU;
             }
 
@@ -204,20 +196,16 @@ namespace Project1DotNet.menu
             Log.Information($"User entered an appreciation: {appreciationInput}. Code menu: {menu}.");
 
             // On demande de valider
-            ColorSetter.WarningColor();
             Console.WriteLine("");
-            Console.WriteLine($"Un {scoreInput}/20 en {subject.Name} sera ajouté à {student.FirstName} {student.LastName}. Confirmer? (y/n)");
-            ColorSetter.Reset();
+            ColorSetter.WriteLine($"Un {scoreInput}/20 en {subject.Name} sera ajouté à {student.FirstName} {student.LastName}. Confirmer? (y/n)", ColorSetter.Warning);
             Log.Information($"User is asked to validate the grade. Code menu: {menu}.");
             string confirmInput = UserInputsValidation.ValidationInput(menu);
             Log.Information($"User entered a validation answer: {confirmInput}. Code menu: {menu}.");
             if (confirmInput == "n")
             {
                 Log.Information($"User canceled the grade attribution: {confirmInput}. Code menu: {menu}.");
-                ColorSetter.InformationColor();
                 Console.WriteLine("");
-                Console.WriteLine(@"L'attribution de la note a été annulée.");
-                ColorSetter.Reset();
+                ColorSetter.WriteLine(@"L'attribution de la note a été annulée.", ColorSetter.Information);
                 return MenuConst.STUDENT_MENU;
             }
 
