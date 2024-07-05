@@ -6,19 +6,21 @@ using System.Threading.Tasks;
 
 namespace Project1DotNet
 {
-    internal class Student
+    internal class Student : Identifiable
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Birthday { get; set; }
+        public Promotion Promotion { get; set; }
 
-        public Student(int id, string firstName, string lastName, DateTime birthday)
+        public Student(int id, string firstName, string lastName, DateTime birthday, Promotion promotion)
         {
             this.Id = id;
             this.FirstName = firstName;
             this.LastName = lastName.ToUpper();
             this.Birthday = birthday;
+            this.Promotion = promotion;
         }
         // Méthodes "GET"
         public List<Grade> GetGrades()

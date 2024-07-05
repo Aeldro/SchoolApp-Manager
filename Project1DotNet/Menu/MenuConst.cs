@@ -31,5 +31,10 @@ namespace Project1DotNet.menu
         public const int SUBJECT_MENU = 2;
         public const int ADD_SUBJECT_MENU = 20;
         public const int DELETE_SUBJECT_MENU = 21;
+
+        public const int PROMOTION_MENU = 3;
+        public const int STUDENTS_PROMOTION_MENU = 30;
+        public const int AVERAGE_PROMOTION_MENU = 31;
+        public const int ADD_PROMOTION_MENU = 32;
     }
 }

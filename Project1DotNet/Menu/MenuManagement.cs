@@ -1,5 +1,4 @@
-﻿using Project1DotNet;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ namespace Project1DotNet.menu
         private static DisplayMainMenu MainMenuDisplay { get; } = new DisplayMainMenu();
         private static DisplayStudentMenu StudentMenuDisplay { get; } = new DisplayStudentMenu();
         private static DisplaySubjectMenu SubjectMenuDisplay { get; } = new DisplaySubjectMenu();
+        private static DisplayPromotionMenu PromotionMenuDisplay { get; } = new DisplayPromotionMenu();
         private static int Menu = MenuConst.MAIN_MENU;
 
         public static void RunMenu()
@@ -33,6 +33,11 @@ namespace Project1DotNet.menu
                     // Menu cours (2)
                     case MenuConst.SUBJECT_MENU:
                         Menu = SubjectMenuDisplay.SubjectMenu(Menu);
+                        break;
+
+                    // Menu promotion (3)
+                    case MenuConst.PROMOTION_MENU:
+                        Menu = PromotionMenuDisplay.PromotionMenu(Menu);
                         break;
 
                     // Ajouter un élève (10)
@@ -60,6 +65,21 @@ namespace Project1DotNet.menu
                         Menu = SubjectMenuDisplay.DeleteSubjectMenu(Menu);
                         break;
 
+                    // Consulter les élèves d'une promotion (30)
+                    case MenuConst.STUDENTS_PROMOTION_MENU:
+                        Menu = PromotionMenuDisplay.StudentPromotionMenu(Menu);
+                        break;
+
+                    // Consulter les moyennes d'une promotion (31)
+                    case MenuConst.AVERAGE_PROMOTION_MENU:
+                        Menu = PromotionMenuDisplay.AveragePromotionMenu(Menu);
+                        break;
+
+                    // Ajouter une promotion (32)
+                    case MenuConst.ADD_PROMOTION_MENU:
+                        Menu = PromotionMenuDisplay.AddPromotionMenu(Menu);
+                        break;
+
                     // Quitte l'application (-1)
                     case MenuConst.EXIT_APP:
                         goto End;
@@ -67,8 +87,8 @@ namespace Project1DotNet.menu
             }
 
         End:
-            Console.WriteLine("____________________");
-            Console.WriteLine("Au revoir.");
+            Console.WriteLine("");
+            ColorSetter.WriteLine("Au revoir.", ColorSetter.Information);
         }
 
     }
